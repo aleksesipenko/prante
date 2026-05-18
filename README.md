@@ -24,6 +24,7 @@
 - `docs/architecture/data_model.md` — черновая схема данных MVP.
 - `docs/architecture/api_contract.md` — черновой API/event contract.
 - `docs/research/translation_backend_oss_research.md` — research OSS-компонентов backend и agent UI.
+- `docs/research/team_collaboration_workflow_research.md` — research по human-facing docs/workflow для команды.
 - `docs/research/Проект_1_таблица_Alsu_SSOT.md` — актуальная таблица-SSOT Проекта 1, основанная на финальном PDF от Алсу.
 - `docs/archive/tables-pre-alsu-2026-05-18/` — старая локальная заполненная таблица до финальной версии Алсу.
 - `TEAM.md` — current team roster, role map, and contribution order.

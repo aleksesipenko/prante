@@ -19,6 +19,7 @@
 - `docs/product/product-brief.md` — короткое описание продукта и MVP.
 - `docs/product/adaptive_translation_memory_spec.md` — главный технический документ по адаптивной памяти, стилю, правилам и learning loop.
 - `docs/research/translation_backend_oss_research.md` — research OSS-компонентов для backend, Telegram и будущего agent UI.
+- `docs/research/team_collaboration_workflow_research.md` — research по human-facing docs/workflow для команды: Wiki.js, BookStack, HedgeDoc, Forgejo/Gitea.
 - `docs/research/Проект_1_таблица_Alsu_SSOT.md` — актуальная таблица-SSOT для задания Школы 21 / Проект 1, собранная из финального PDF от Алсу.
 - `docs/research/source/alsu_project_1_submitted_2026-05-18.pdf` — оригинальный PDF от Алсу.
 - `docs/archive/tables-pre-alsu-2026-05-18/` — архив старой локальной заполненной таблицы до финального варианта Алсу.
