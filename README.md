@@ -24,7 +24,8 @@
 - `docs/architecture/data_model.md` — черновая схема данных MVP.
 - `docs/architecture/api_contract.md` — черновой API/event contract.
 - `docs/research/translation_backend_oss_research.md` — research OSS-компонентов backend и agent UI.
-- `docs/research/Ресерч_проекта_PRANTE_google_docs.md` — Google Docs-friendly ресерч для задания Школы 21.
+- `docs/research/Проект_1_таблица_Alsu_SSOT.md` — актуальная таблица-SSOT Проекта 1, основанная на финальном PDF от Алсу.
+- `docs/archive/tables-pre-alsu-2026-05-18/` — старая локальная заполненная таблица до финальной версии Алсу.
 - `docs/DEV_LINKS.md` — индекс документации и внешних ссылок для разработки.
 - `docs/templates/` — исходные материалы задания и будущие шаблоны.
 

@@ -8,6 +8,8 @@ This repository contains the PRANTE project: a Telegram-first assistant for tran
 - `docs/product/product-brief.md` — product summary.
 - `docs/product/adaptive_translation_memory_spec.md` — architecture/spec for adaptive memory.
 - `docs/research/translation_backend_oss_research.md` — OSS research for backend and UI choices.
+- `docs/research/Проект_1_таблица_Alsu_SSOT.md` — canonical Project 1 submitted table from Alsu's PDF.
+- `docs/archive/tables-pre-alsu-2026-05-18/` — archived older local generated table before Alsu's final PDF.
 - `docs/DEV_LINKS.md` — external development documentation index.
 - `docs/telethon.md` — read-only Telethon contour: chat archive pulls, local artifacts, session safety, and cron usage.
 

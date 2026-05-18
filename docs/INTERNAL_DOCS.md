@@ -19,17 +19,18 @@
 - `docs/product/product-brief.md` — короткое описание продукта и MVP.
 - `docs/product/adaptive_translation_memory_spec.md` — главный технический документ по адаптивной памяти, стилю, правилам и learning loop.
 - `docs/research/translation_backend_oss_research.md` — research OSS-компонентов для backend, Telegram и будущего agent UI.
-- `docs/research/Ресерч_проекта_PRANTE.md` — исходная версия ресерча для задания.
-- `docs/research/Ресерч_проекта_PRANTE_google_docs.md` — Google Docs-friendly версия ресерча.
+- `docs/research/Проект_1_таблица_Alsu_SSOT.md` — актуальная таблица-SSOT для задания Школы 21 / Проект 1, собранная из финального PDF от Алсу.
+- `docs/research/source/alsu_project_1_submitted_2026-05-18.pdf` — оригинальный PDF от Алсу.
+- `docs/archive/tables-pre-alsu-2026-05-18/` — архив старой локальной заполненной таблицы до финального варианта Алсу.
+- `docs/telegram/digests/2026-05-18-cifrovye-kafedry.md` — дайджест сегодняшнего обсуждения в командном Telegram-чате.
 - `docs/DEV_LINKS.md` — индекс ссылок на документацию для разработки.
 - `docs/templates/Анализ_аудитории_рынка_и_гипотезы.md` — исходное задание Школы 21.
 
-### Экспортные файлы
+### Экспортные и исходные файлы
 
-- `docs/research/PRANTE_research_google_docs_clean.docx` — чистый DOCX для Google Docs.
-- `docs/research/PRANTE_research_google_docs_copy.html` — fallback для копипаста с форматированием.
-- `docs/research/PRANTE_research_google_docs_copy.rtf` — fallback для импорта.
-- `docs/research/PRANTE_research_google_docs_copy.txt` — plain text fallback.
+- `docs/research/source/alsu_project_1_submitted_2026-05-18.pdf` — оригинальный PDF, присланный Алсу.
+- `docs/research/Проект_1_таблица_Alsu_SSOT.md` — markdown-индекс и text extract из PDF-таблицы Алсу.
+- `docs/archive/tables-pre-alsu-2026-05-18/` — старая локальная таблица, больше не canonical.
 
 ## 3. Что считать источником истины
 
@@ -47,17 +48,18 @@
 - постановка задач;
 - объяснение ценности продукта.
 
-### Для задания Школы 21
+### Для задания Школы 21 / Проект 1
 
-Источник истины:
+Источник истины по заполненной таблице:
 
-- `docs/research/Ресерч_проекта_PRANTE_google_docs.md`
+- `docs/research/Проект_1_таблица_Alsu_SSOT.md`
+- `docs/research/source/alsu_project_1_submitted_2026-05-18.pdf`
 
-Экспорт в Google Docs:
+Старый локальный workbook/table:
 
-- `docs/research/PRANTE_research_google_docs_clean.docx`
+- `docs/archive/tables-pre-alsu-2026-05-18/Проект_1_PRANTE_заполнено.xlsx`
 
-Важно: если команда правит Google Docs, после финальной правки нужно перенести смысловые изменения обратно в Markdown, а не принимать технический экспорт со слешами `\.` и forced line breaks как canonical version.
+Важно: ресерч-документы в `docs/research/Ресерч_проекта_PRANTE*.md/docx` остаются рабочими материалами. Если есть расхождение между ними и PDF-таблицей Алсу, для сдачи Проекта 1 считать главным PDF/SSOT от Алсу.
 
 ### Для технической архитектуры
 
