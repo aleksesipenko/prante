@@ -1,0 +1,25 @@
+# Hermes / local artifacts
+*.session
+*.session-journal
+*.sqlite
+*.db
+*.log
+*.tmp
+
+# Telegram Telethon exports and caches
+artifacts/telegram/
+artifacts/telethon/
+exports/telegram/
+exports/telethon/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.venv/
+venv/
+
+# OS/editor
+.DS_Store
+Thumbs.db
