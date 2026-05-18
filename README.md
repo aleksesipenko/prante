@@ -26,6 +26,7 @@
 - `docs/research/translation_backend_oss_research.md` — research OSS-компонентов backend и agent UI.
 - `docs/research/Проект_1_таблица_Alsu_SSOT.md` — актуальная таблица-SSOT Проекта 1, основанная на финальном PDF от Алсу.
 - `docs/archive/tables-pre-alsu-2026-05-18/` — старая локальная заполненная таблица до финальной версии Алсу.
+- `TEAM.md` — current team roster, role map, and contribution order.
 - `docs/DEV_LINKS.md` — индекс документации и внешних ссылок для разработки.
 - `docs/templates/` — исходные материалы задания и будущие шаблоны.
 

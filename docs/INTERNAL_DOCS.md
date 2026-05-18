@@ -22,6 +22,7 @@
 - `docs/research/Проект_1_таблица_Alsu_SSOT.md` — актуальная таблица-SSOT для задания Школы 21 / Проект 1, собранная из финального PDF от Алсу.
 - `docs/research/source/alsu_project_1_submitted_2026-05-18.pdf` — оригинальный PDF от Алсу.
 - `docs/archive/tables-pre-alsu-2026-05-18/` — архив старой локальной заполненной таблицы до финального варианта Алсу.
+- `TEAM.md` — team roster, Telegram handles, roles, and contribution order for the current project team.
 - `docs/telegram/digests/2026-05-18-cifrovye-kafedry.md` — дайджест сегодняшнего обсуждения в командном Telegram-чате.
 - `docs/DEV_LINKS.md` — индекс ссылок на документацию для разработки.
 - `docs/templates/Анализ_аудитории_рынка_и_гипотезы.md` — исходное задание Школы 21.
