@@ -1,16 +1,59 @@
-# Hermes / local artifacts
+# Local secrets and runtime state
+.env
+.env.*
+!.env.example
 *.session
 *.session-journal
 *.sqlite
+*.sqlite3
 *.db
+*.db-shm
+*.db-wal
 *.log
 *.tmp
+*.bak
 
-# Telegram Telethon exports and caches
+# Telegram / Telethon local contours
+telethon/
+scripts/telethon/
+docs/telethon.md
+docs/telegram/
 artifacts/telegram/
 artifacts/telethon/
 exports/telegram/
 exports/telethon/
+**/telegram-exports/
+**/telethon-exports/
+**/*telethon*/
+**/*telegram-session*/
+
+# Local/source dumps and extracted media
+docs/archive/
+docs/plans/
+docs/research/source/
+docs/research/*google_docs*
+docs/research/PRANTE_research_google_docs_*
+docs/prototypes/*/verification/
+docs/prototypes/frontend-references/
+docs/prototypes/prante-mvp-mockup.html
+local/
+_local/
+.local/
+
+# Generated/binary handoff artifacts
+*.zip
+*.mp4
+*.mov
+*.webm
+*.xlsx
+*.xls
+*.pptx
+*.docx
+*.rtf
+*.pdf
+
+# Duplicate local assignment exports
+/Анализ-аудитории-рынка-и-гипотезы.md
 
 # Python
 __pycache__/
@@ -20,6 +63,15 @@ __pycache__/
 .venv/
 venv/
 
+# Node/frontend caches
+node_modules/
+dist/
+build/
+.next/
+.cache/
+
 # OS/editor
 .DS_Store
 Thumbs.db
+.vscode/
+.idea/

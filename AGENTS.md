@@ -4,34 +4,35 @@ This repository contains the PRANTE project: a Telegram-first assistant for tran
 
 ## Source of truth
 
-- `docs/INTERNAL_DOCS.md` — internal navigation and SSOT.
+- `README.md` — public entry point for the team repository.
+- `docs/INTERNAL_DOCS.md` — documentation map and SSOT rules.
 - `docs/product/product-brief.md` — product summary.
-- `docs/product/adaptive_translation_memory_spec.md` — architecture/spec for adaptive memory.
-- `docs/research/translation_backend_oss_research.md` — OSS research for backend and UI choices.
-- `docs/research/team_collaboration_workflow_research.md` — research for team docs/workflow: Wiki.js, BookStack, HedgeDoc, Forgejo/Gitea.
-- `docs/research/Проект_1_таблица_Alsu_SSOT.md` — canonical Project 1 submitted table from Alsu's PDF.
-- `docs/archive/tables-pre-alsu-2026-05-18/` — archived older local generated table before Alsu's final PDF.
-- `TEAM.md` — current team roster, role map, and contribution order.
-- `docs/telethon.md` — read-only Telethon contour: chat archive pulls, local artifacts, session safety, and cron usage.
+- `docs/product/adaptive_translation_memory_spec.md` — architecture/spec for adaptive memory and approval loop.
+- `docs/prototypes/final-mvp/` — current bot-first MVP prototype.
+- `docs/prototypes/project-2-task-3-mvp-spec.md` — MVP prototype assignment/spec.
+- `docs/research/Ресерч_проекта_PRANTE.md` — main research document.
+- `docs/research/Проект_1_таблица_Alsu_SSOT.md` — canonical Project 1 table/SSOT.
+- `TEAM.md` — current team roster and roles.
 
 ## Working rules
 
-- Prefer concise, high-signal updates.
-- Keep documentation consistent; if product or architecture changes, update the matching doc instead of only changing the README.
+- Keep the user-facing product Telegram-first. A landing page may explain the bot, but must not replace the bot-flow artifact.
+- Keep Russian UX clean and non-technical for reviewers/users.
 - Treat deterministic analysis as the default: repeats, glossary matching, rules, diffing, QA.
 - Use LLMs for draft generation, explanation, and candidate rule formulation — not as the source of truth.
-- Do not commit Telegram session files, exports, or other local artifacts. They are ignored by `.gitignore`.
-- If you add a script that reads Telegram via Telethon, keep it read-only unless explicitly asked otherwise.
-- For Telegram archive pulls, prefer the script in `scripts/telethon/` and use the Telethon compat-session workaround if the host session schema requires it.
+- Do not commit local sessions, Telegram/Telethon exports, generated archives, raw dumps, or verification artifacts.
+- If product or architecture changes, update the matching doc together with the prototype/code.
 
 ## Current repo layout
 
-- `docs/` — product, research, architecture, and links.
-- `deliverables/` — generated workbook and other handoff artifacts.
-- `scripts/telethon/` — read-only Telegram archive tooling.
+- `docs/product/` — product brief and adaptive memory specification.
+- `docs/architecture/` — backend/API/data model drafts.
+- `docs/prototypes/final-mvp/` — static MVP prototype that can be opened locally.
+- `docs/research/` — curated research/SSOT documents only.
+- `docs/templates/` — assignment/template material.
 
 ## Change discipline
 
-- Update docs along with code or deliverables.
-- When adding a new utility script, document its purpose and how to run it.
-- Keep outputs reproducible; scripts should write to a predictable output directory and report the path.
+- Keep the repository suitable for team handoff and public GitHub upload.
+- Keep local operator contours local via `.gitignore`.
+- Prefer small, documented changes over hidden local state.
