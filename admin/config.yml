@@ -1,0 +1,167 @@
+backend:
+  name: git-gateway
+  branch: main
+
+local_backend: true
+
+media_folder: "docs/prototypes/final-mvp/assets"
+public_folder: "/assets"
+
+collections:
+  - name: "prototype"
+    label: "Текст прототипа ПРАНТЕ"
+    files:
+      - name: "content"
+        label: "Все тексты прототипа"
+        file: "docs/prototypes/final-mvp/content/prante-content.json"
+        format: "json"
+        fields:
+          - label: "Заголовок страницы"
+            name: "page"
+            widget: "object"
+            fields:
+              - {label: "Плашка", name: "badge", widget: "string"}
+              - {label: "Главный заголовок", name: "headline", widget: "string"}
+              - {label: "Подзаголовок", name: "subhead", widget: "text"}
+              - {label: "Главная кнопка", name: "primaryCta", widget: "string"}
+              - {label: "Вторая кнопка", name: "secondaryCta", widget: "string"}
+              - {label: "Принцип — заголовок", name: "principleTitle", widget: "string"}
+              - {label: "Принцип — текст", name: "principleText", widget: "text"}
+              - {label: "Заголовок исследования", name: "researchTitle", widget: "string"}
+              - {label: "Пункты исследования", name: "researchItems", widget: "list", field: {label: "Пункт", name: "item", widget: "string"}}
+              - {label: "Заголовок проверки", name: "mvpTitle", widget: "string"}
+              - {label: "Пункты проверки", name: "mvpItems", widget: "list", field: {label: "Пункт", name: "item", widget: "string"}}
+          - label: "Заголовок бота"
+            name: "botHeader"
+            widget: "object"
+            fields:
+              - {label: "Название", name: "name", widget: "string"}
+              - {label: "Статус ожидания", name: "statusIdle", widget: "string"}
+              - {label: "Статус работы", name: "statusWorking", widget: "string"}
+              - {label: "Статус готовности", name: "statusDone", widget: "string"}
+              - {label: "Меню", name: "menu", widget: "string"}
+          - label: "Сценарий чата"
+            name: "chat"
+            widget: "object"
+            fields:
+              - {label: "Дата", name: "dateLabel", widget: "string"}
+              - {label: "Стартовое сообщение", name: "startMessage", widget: "text"}
+              - {label: "Подсказка старта", name: "startHint", widget: "text"}
+              - {label: "Заголовок команд", name: "commandsTitle", widget: "string"}
+              - {label: "Команды", name: "commands", widget: "list", field: {label: "Команда", name: "command", widget: "string"}}
+              - {label: "Сообщение пользователя", name: "userMessage", widget: "text"}
+              - {label: "Название файла", name: "fileTitle", widget: "string"}
+              - {label: "Описание файла", name: "fileMeta", widget: "string"}
+              - {label: "Подпись файла", name: "fileIconLabel", widget: "string"}
+              - {label: "Начало обработки", name: "processingTitle", widget: "string"}
+              - {label: "Подсказка обработки", name: "processingHint", widget: "text"}
+              - {label: "Готовый разбор", name: "readyTitle", widget: "string"}
+              - {label: "Подсказка разбора", name: "readyHint", widget: "text"}
+              - {label: "Действие: принять термины", name: "glossaryUserAction", widget: "string"}
+              - {label: "Ответ после глоссария", name: "glossaryBotReply", widget: "text"}
+              - {label: "Действие: черновик", name: "draftUserAction", widget: "string"}
+              - {label: "Заголовок черновика", name: "draftTitle", widget: "string"}
+              - {label: "Текст черновика", name: "draftText", widget: "text"}
+              - {label: "Правка пользователя", name: "editUserAction", widget: "text"}
+              - {label: "Заголовок памяти", name: "memoryTitle", widget: "string"}
+              - {label: "Текст памяти", name: "memoryText", widget: "text"}
+              - {label: "Кнопки памяти", name: "memoryButtons", widget: "list", field: {label: "Кнопка", name: "button", widget: "string"}}
+              - {label: "Действие: сохранить", name: "memoryUserAction", widget: "string"}
+              - {label: "Финальный заголовок", name: "finalTitle", widget: "string"}
+              - {label: "Финальный текст", name: "finalText", widget: "text"}
+          - label: "Ход работы"
+            name: "progress"
+            widget: "object"
+            fields:
+              - {label: "Заголовок", name: "title", widget: "string"}
+              - label: "Шаги"
+                name: "steps"
+                widget: "list"
+                fields:
+                  - {label: "Название", name: "label", widget: "string"}
+                  - {label: "Деталь", name: "detail", widget: "string"}
+                  - {label: "Длительность", name: "durationMs", widget: "number"}
+          - label: "Отчёт"
+            name: "report"
+            widget: "object"
+            fields:
+              - label: "Метрики"
+                name: "metrics"
+                widget: "list"
+                fields:
+                  - {label: "Значение", name: "value", widget: "string"}
+                  - {label: "Подпись", name: "label", widget: "string"}
+              - {label: "Заголовок", name: "summaryTitle", widget: "string"}
+              - {label: "Пункты", name: "summary", widget: "list", field: {label: "Пункт", name: "item", widget: "string"}}
+              - {label: "Кнопки", name: "buttons", widget: "list", field: {label: "Кнопка", name: "button", widget: "string"}}
+          - label: "Глоссарий"
+            name: "glossary"
+            widget: "object"
+            fields:
+              - {label: "Заголовок", name: "title", widget: "string"}
+              - label: "Термины"
+                name: "items"
+                widget: "list"
+                fields:
+                  - {label: "Исходный термин", name: "source", widget: "string"}
+                  - {label: "Перевод", name: "target", widget: "string"}
+                  - {label: "Примечание", name: "note", widget: "string"}
+          - label: "Скелет будущего бота"
+            name: "skeleton"
+            widget: "object"
+            fields:
+              - {label: "Заголовок", name: "title", widget: "string"}
+              - {label: "Пункты", name: "items", widget: "list", field: {label: "Пункт", name: "item", widget: "string"}}
+
+          - label: "Служебные подписи"
+            name: "meta"
+            widget: "object"
+            fields:
+              - {label: "Название страницы", name: "title", widget: "string"}
+              - {label: "Описание", name: "description", widget: "string"}
+              - {label: "Версия", name: "version", widget: "string"}
+              - {label: "Название бренда", name: "brandName", widget: "string"}
+              - {label: "Буква знака", name: "brandLetter", widget: "string"}
+          - label: "Кнопки управления демонстрацией"
+            name: "controls"
+            widget: "object"
+            fields:
+              - {label: "Повторить", name: "restart", widget: "string"}
+              - {label: "Пауза", name: "pause", widget: "string"}
+              - {label: "Продолжить", name: "resume", widget: "string"}
+              - {label: "Показать итог", name: "final", widget: "string"}
+              - {label: "Меньше движения", name: "motion", widget: "string"}
+          - label: "Будущие действия бота"
+            name: "actions"
+            widget: "object"
+            fields:
+              - label: "Загрузить документ"
+                name: "uploadDocument"
+                widget: "object"
+                fields:
+                  - {label: "Подпись", name: "label", widget: "string"}
+                  - {label: "Будущее действие", name: "futureAction", widget: "string"}
+              - label: "Вставить текст"
+                name: "pasteText"
+                widget: "object"
+                fields:
+                  - {label: "Подпись", name: "label", widget: "string"}
+                  - {label: "Будущее действие", name: "futureAction", widget: "string"}
+              - label: "Принять термины"
+                name: "acceptTerms"
+                widget: "object"
+                fields:
+                  - {label: "Подпись", name: "label", widget: "string"}
+                  - {label: "Будущее действие", name: "futureAction", widget: "string"}
+              - label: "Сделать черновик"
+                name: "makeDraft"
+                widget: "object"
+                fields:
+                  - {label: "Подпись", name: "label", widget: "string"}
+                  - {label: "Будущее действие", name: "futureAction", widget: "string"}
+              - label: "Сохранить правило"
+                name: "saveMemory"
+                widget: "object"
+                fields:
+                  - {label: "Подпись", name: "label", widget: "string"}
+                  - {label: "Будущее действие", name: "futureAction", widget: "string"}
