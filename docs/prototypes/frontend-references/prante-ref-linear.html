@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PRANTE Reference A — Linear-like Operator UI</title>
+<style>
+:root{
+  --bg:#08090a;--panel:#0f1011;--surface:#17181a;--surface2:#1d1f22;
+  --line:rgba(255,255,255,.08);--line2:rgba(255,255,255,.05);
+  --text:#f7f8f8;--muted:#8a8f98;--soft:#d0d6e0;--accent:#7170ff;--brand:#5e6ad2;--ok:#10b981;--warn:#f3b35b;
+}
+*{box-sizing:border-box} body{margin:0;background:radial-gradient(circle at 50% -10%,rgba(113,112,255,.2),transparent 34%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-feature-settings:"cv01","ss03";letter-spacing:-.01em} 
+.container{max-width:1180px;margin:0 auto;padding:28px} header{display:flex;align-items:center;justify-content:space-between;padding:12px 0 36px;border-bottom:1px solid var(--line2)}
+.logo{display:flex;gap:10px;align-items:center;font-weight:590}.mark{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--accent),#9da2ff);box-shadow:0 0 30px rgba(113,112,255,.35)}
+.nav{display:flex;gap:18px;color:var(--muted);font-size:13px}.nav span.active{color:var(--text)}.cta{background:var(--brand);color:#fff;border:0;border-radius:7px;padding:9px 14px;font-weight:510}
+.hero{display:grid;grid-template-columns:0.9fr 1.1fr;gap:34px;align-items:center;padding:54px 0}.eyebrow{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:6px 10px;color:var(--soft);font-size:12px;background:rgba(255,255,255,.03)}
+h1{font-size:64px;line-height:.95;margin:18px 0 18px;letter-spacing:-1.4px;font-weight:510}p.lead{font-size:18px;line-height:1.55;color:var(--muted);max-width:560px}.actions{display:flex;gap:12px;margin-top:26px}.btn{border:1px solid var(--line);border-radius:7px;padding:12px 16px;background:rgba(255,255,255,.03);color:var(--soft);font-weight:510}.btn.primary{background:var(--brand);color:white;border-color:transparent}
+.stage{border:1px solid var(--line);border-radius:22px;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));box-shadow:inset 0 0 0 1px rgba(255,255,255,.02),0 22px 80px rgba(0,0,0,.32);overflow:hidden}.stagebar{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid var(--line2);background:rgba(0,0,0,.18)}.dots{display:flex;gap:6px}.dots i{width:8px;height:8px;border-radius:50%;background:#343840}.status{font-size:12px;color:var(--muted);font-family:ui-monospace,monospace}
+.workflow{display:grid;grid-template-columns:240px 1fr;min-height:470px}.side{border-right:1px solid var(--line2);padding:14px}.item{padding:12px;border-radius:10px;color:var(--muted);font-size:13px;margin-bottom:8px}.item.active{background:rgba(113,112,255,.12);color:var(--text);border:1px solid rgba(113,112,255,.28)}.item b{display:block;color:inherit;margin-bottom:4px}.main{padding:18px}.doc{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--line);border-radius:14px;padding:14px;background:rgba(255,255,255,.03);margin-bottom:14px}.doc small{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}.metric{border:1px solid var(--line);border-radius:14px;padding:14px;background:#111214}.metric strong{font-size:24px}.metric span{display:block;color:var(--muted);font-size:12px;margin-top:4px}.analysis{display:grid;grid-template-columns:1fr 1fr;gap:12px}.card{border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.025);padding:14px}.card h3{font-size:14px;margin:0 0 12px}.term{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line2);font-size:13px}.term:last-child{border-bottom:0}.tag{color:var(--ok);font-family:ui-monospace,monospace;font-size:12px}.risk{color:var(--warn)}
+.bottom{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:0 0 40px}.principle{border:1px solid var(--line2);border-radius:16px;background:rgba(255,255,255,.025);padding:18px}.principle h3{margin:0 0 8px;font-size:16px}.principle p{margin:0;color:var(--muted);line-height:1.5;font-size:14px}
+@media(max-width:900px){.hero{grid-template-columns:1fr}h1{font-size:42px}.workflow{grid-template-columns:1fr}.side{display:none}.bottom{grid-template-columns:1fr}.grid,.analysis{grid-template-columns:1fr}.nav{display:none}}
+</style>
+</head>
+<body><!--
+PRANTE frontend reference mockup.
+These are comparison artifacts, not production code.
+Content is based on PRANTE: Telegram-first pre-translation analysis, glossary, draft translation, memory.
+-->
+<div class="container">
+<header><div class="logo"><div class="mark"></div>PRANTE</div><nav class="nav"><span class="active">MVP</span><span>Глоссарий</span><span>Память</span><span>Отчеты</span></nav><button class="cta">Запустить анализ</button></header>
+<section class="hero">
+<div><span class="eyebrow">Reference A · Linear-like · операторский интерфейс</span><h1>Предпереводческий анализ без визуального шума.</h1><p class="lead">Темный, точный, инструментальный frontend для переводчика, которому важны контроль, статусы и быстрые решения: принять термин, проверить риск, получить черновик.</p><div class="actions"><button class="btn primary">Загрузить DOCX</button><button class="btn">Посмотреть сценарий</button></div></div>
+<div class="stage"><div class="stagebar"><div class="dots"><i></i><i></i><i></i></div><div class="status">analysis.run / contract_en_ru.docx</div></div><div class="workflow"><aside class="side"><div class="item active"><b>01 · Intake</b>Документ получен</div><div class="item active"><b>02 · Analysis</b>Повторы, стиль, термины</div><div class="item"><b>03 · Glossary</b>Подтверждение терминов</div><div class="item"><b>04 · Draft</b>Черновой перевод</div><div class="item"><b>05 · Memory</b>Сохранить правила</div></aside><main class="main"><div class="doc"><div><b>Technical agreement · EN → RU</b><br><small>12 страниц · пример MVP-сценария</small></div><span class="tag">READY</span></div><div class="grid"><div class="metric"><strong>23</strong><span>повтора найдено</span></div><div class="metric"><strong>17</strong><span>кандидатов в термины</span></div><div class="metric"><strong>3</strong><span class="risk">стилевых риска</span></div></div><div class="analysis"><div class="card"><h3>Ключевые термины</h3><div class="term"><span>liability cap</span><span>лимит ответственности</span></div><div class="term"><span>source text</span><span>исходный текст</span></div><div class="term"><span>deliverables</span><span>результаты работ</span></div></div><div class="card"><h3>Рекомендация</h3><p style="color:var(--muted);line-height:1.55;margin:0">Перед черновиком подтвердить 3 термина. ПРАНТЕ применит их ко всем повторам и покажет спорные фрагменты отдельным списком.</p></div></div></main></div></div>
+</section>
+<section class="bottom"><div class="principle"><h3>Сильная сторона</h3><p>Лучше всего подходит для “инструмента переводчика”: плотный UI, контроль состояний, ощущение серьезного продукта.</p></div><div class="principle"><h3>Риск</h3><p>Может выглядеть слишком разработческим/темным для учебной презентации, если не смягчить копирайтинг.</p></div><div class="principle"><h3>Когда брать</h3><p>Если хотим показать ПРАНТЕ как профессиональный translation cockpit, а не просто чат-бот.</p></div></section>
+</div>
+</body></html>

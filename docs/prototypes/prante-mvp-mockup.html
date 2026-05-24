@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PRANTE MVP Mockup</title>
+  <style>
+    :root {
+      --bg: #070b14;
+      --panel: #0d1422;
+      --card: #121b2d;
+      --soft: #20314d;
+      --accent: #37d6b4;
+      --accent-2: #87e8ff;
+      --accent-3: #c4f06b;
+      --text: #f4f7fb;
+      --muted: #9aacbd;
+      --warn: #f4b84a;
+      --danger: #fb7185;
+      --border: rgba(180, 220, 255, .16);
+      --shadow-lg: 0 36px 90px rgba(0, 0, 0, .46);
+      --radius: 28px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 12% 8%, rgba(55, 214, 180, .18), transparent 31%),
+        radial-gradient(circle at 86% 12%, rgba(135, 232, 255, .14), transparent 32%),
+        linear-gradient(180deg, #050712 0%, #08111d 46%, #0f172a 100%);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+    body.video-mode { background: #050712; }
+    .wrap { max-width: 1280px; margin: 0 auto; padding: 24px; }
+    .hero {
+      min-height: 92vh;
+      display: grid;
+      place-items: center;
+      padding: 36px 24px 42px;
+      position: relative;
+      isolation: isolate;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 34px;
+      pointer-events: none;
+      z-index: -1;
+    }
+    .hero-grid {
+      width: min(1180px, 100%);
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: clamp(28px, 5vw, 70px);
+      align-items: center;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border: 1px solid rgba(55,214,180,.22);
+      border-radius: 999px;
+      color: #a7fff0;
+      background: rgba(55,214,180,.08);
+      font-size: 13px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .pulse-dot {
+      width: 8px; height: 8px; border-radius: 999px; background: var(--accent);
+      box-shadow: 0 0 18px rgba(55,214,180,.75);
+      animation: pulseDot 1.8s ease-in-out infinite;
+    }
+    h1 {
+      margin: 0 0 22px;
+      font-size: clamp(44px, 7vw, 82px);
+      line-height: .95;
+      letter-spacing: -.06em;
+      max-width: 720px;
+    }
+    h1 .accent {
+      display: block;
+      background: linear-gradient(90deg, #37d6b4, #87e8ff, #c4f06b);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .hero-sub {
+      color: var(--muted);
+      font-size: clamp(17px, 2vw, 21px);
+      line-height: 1.55;
+      max-width: 650px;
+      margin: 0 0 28px;
+    }
+    .hero-cta-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    .cta-primary, .cta-ghost, .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 16px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-weight: 800;
+      border: 1px solid transparent;
+    }
+    .cta-primary, .btn { background: var(--accent); color: #02231e; box-shadow: 0 14px 34px rgba(55,214,180,.18); }
+    .cta-ghost, .btn.secondary { background: rgba(255,255,255,.06); color: var(--text); border-color: rgba(255,255,255,.11); }
+    .hero-hint { margin: 16px 0 0; color: #7e91a5; font-size: 14px; }
+
+    .hero-stage {
+      aspect-ratio: 4 / 5;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      max-width: 456px;
+      width: 100%;
+      min-height: 570px;
+      box-shadow: var(--shadow-lg);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.01)),
+        radial-gradient(circle at 80% 0%, rgba(55,214,180,.12), transparent 35%),
+        #08111d;
+      display: flex;
+      flex-direction: column;
+      margin-left: auto;
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(16px) scale(.97);
+      animation: stageReveal .75s cubic-bezier(.22,1,.36,1) .15s forwards;
+    }
+    .hero-stage::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(120deg, transparent, rgba(255,255,255,.05), transparent);
+      transform: translateX(-120%);
+      animation: stageSheen 5.2s ease-in-out infinite;
+    }
+    .stage-head {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(255,255,255,.025);
+      z-index: 1;
+    }
+    .stage-avatar {
+      width: 42px; height: 42px; border-radius: 14px;
+      display: grid; place-items: center;
+      color: #031a16; font-weight: 900; letter-spacing: -.05em;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 10px 24px rgba(55,214,180,.22);
+    }
+    .stage-name { font-weight: 800; letter-spacing: -.02em; }
+    .stage-status { color: var(--accent); font-size: 12px; margin-top: 2px; }
+    .stage-scroll {
+      flex: 1 1 0%; min-height: 0; overflow-y: auto;
+      display: flex; flex-direction: column; gap: 10px;
+      padding: 18px 20px 22px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255,255,255,.12) transparent;
+      z-index: 1;
+    }
+    .stage-scroll::-webkit-scrollbar { width: 6px; }
+    .stage-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,.12); border-radius: 3px; }
+    .stage-day {
+      align-self: center;
+      margin: 4px 0 6px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(255,255,255,.045);
+      font-size: 11px;
+      letter-spacing: .04em;
+    }
+    .stage-bubble {
+      max-width: 86%;
+      padding: 10px 14px;
+      border-radius: 16px;
+      font-size: 14px;
+      line-height: 1.45;
+      opacity: 0;
+      transform: translateY(12px) scale(.985);
+      filter: blur(1px);
+      transition: opacity .42s cubic-bezier(.22,1,.36,1), transform .42s cubic-bezier(.22,1,.36,1), filter .42s;
+    }
+    .stage-bubble.visible { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+    .stage-bubble.mine { align-self: flex-end; color: #03221d; background: linear-gradient(135deg, #37d6b4, #87e8ff); border-bottom-right-radius: 4px; }
+    .stage-bubble.prante { align-self: flex-start; color: var(--text); background: rgba(255,255,255,.075); border: 1px solid rgba(255,255,255,.08); border-bottom-left-radius: 4px; }
+    .stage-bubble.file { align-self: flex-end; display: flex; gap: 10px; align-items: center; background: rgba(55,214,180,.13); border: 1px solid rgba(55,214,180,.22); color: #cffff7; }
+    .file-icon { width: 32px; height: 38px; border-radius: 8px; background: #e8fff9; color: #06352d; display: grid; place-items: center; font-weight: 900; font-size: 11px; }
+    .bubble-meta { color: rgba(255,255,255,.42); text-align: right; letter-spacing: .02em; margin-top: 5px; font-size: 10px; }
+    .mine .bubble-meta { color: rgba(3,34,29,.6); }
+    .voice-row { display: flex; align-items: center; gap: 10px; }
+    .voice-play { width: 30px; height: 30px; border-radius: 999px; background: rgba(3,34,29,.14); display: grid; place-items: center; flex: 0 0 auto; }
+    .voice-play svg { width: 11px; height: 11px; fill: currentColor; margin-left: 2px; }
+    .voice-wave { flex: 1; display: flex; align-items: center; gap: 2px; min-width: 0; height: 28px; overflow: hidden; }
+    .voice-wave span { width: 3px; border-radius: 2px; background: currentColor; opacity: .42; animation: wavePulse 1.4s ease-in-out infinite; animation-delay: calc(var(--i) * .045s); }
+    .voice-duration { font-size: 11px; opacity: .7; flex: 0 0 auto; }
+    .voice-auto-transcript { margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(3,34,29,.18); color: rgba(3,34,29,.82); font-size: 12px; line-height: 1.42; }
+    .voice-auto-label { font-weight: 900; letter-spacing: .1em; font-size: 10px; opacity: .62; margin-bottom: 5px; }
+    .tool-history { margin-top: 10px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,.08); display: grid; gap: 6px; }
+    .tool-history-item { color: rgba(255,255,255,.62); display: flex; gap: 8px; align-items: center; font-size: 11px; }
+    .th-icon { width: 18px; height: 18px; border-radius: 6px; display: grid; place-items: center; background: rgba(55,214,180,.12); color: #90f8e5; flex: 0 0 auto; }
+    .stage-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+    .stage-chip { font-size: 11px; padding: 5px 8px; border-radius: 999px; background: rgba(55,214,180,.1); color: #a7fff0; border: 1px solid rgba(55,214,180,.18); }
+    .typing { display: none; align-self: flex-start; gap: 4px; padding: 11px 14px; background: rgba(255,255,255,.07); border-radius: 16px; border-bottom-left-radius: 4px; }
+    .typing.visible { display: flex; }
+    .typing span { width: 6px; height: 6px; border-radius: 999px; background: var(--muted); animation: typing 1s ease-in-out infinite; }
+    .typing span:nth-child(2) { animation-delay: .15s; }
+    .typing span:nth-child(3) { animation-delay: .3s; }
+
+    .header { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; }
+    .badge { display: inline-block; padding: 6px 10px; border-radius: 999px; background: rgba(55,214,180,.12); color: var(--accent); font-size: 12px; margin-bottom: 10px; }
+    h2,h3,p { margin-top: 0; }
+    .lead { color: var(--muted); max-width: 760px; }
+    .grid { display: grid; grid-template-columns: 280px 1fr; gap: 20px; }
+    .nav, .screen { background: rgba(17,24,39,.88); border: 1px solid rgba(148,163,184,.14); border-radius: 18px; padding: 18px; backdrop-filter: blur(10px); }
+    .nav { position: sticky; top: 18px; align-self: start; }
+    .nav a { display: block; color: var(--text); text-decoration: none; padding: 10px 12px; border-radius: 12px; margin-bottom: 8px; background: rgba(51,65,85,.25); }
+    .nav a:hover { background: rgba(55,214,180,.14); }
+    .screens { display: grid; gap: 18px; }
+    .screen { scroll-margin-top: 20px; }
+    .telegram { border: 1px solid rgba(148,163,184,.14); border-radius: 16px; overflow: hidden; background: #0b1220; }
+    .tg-top { background: #17212b; padding: 12px 14px; font-weight: 600; }
+    .tg-body { padding: 14px; display: grid; gap: 10px; background: radial-gradient(circle at top right, rgba(55,214,180,.08), transparent 30%), #0b1220; }
+    .msg { max-width: 82%; padding: 12px 14px; border-radius: 16px; background: #1e293b; color: var(--text); line-height: 1.45; }
+    .msg.user { margin-left: auto; background: #0f766e; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .chip { background: rgba(34,197,94,.12); color: #86efac; padding: 6px 10px; border-radius: 999px; font-size: 12px; }
+    .chip.warn { background: rgba(245,158,11,.12); color: #fcd34d; }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+    .meta { margin-top: 14px; color: var(--muted); font-size: 14px; }
+    .note { margin-top: 12px; padding: 12px 14px; border-left: 3px solid var(--warn); background: rgba(245,158,11,.08); color: #fde68a; border-radius: 8px; }
+
+    @keyframes stageReveal { 0% { opacity: 0; transform: translateY(16px) scale(.97); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+    @keyframes stageSheen { 0%, 62% { transform: translateX(-120%); } 82%, 100% { transform: translateX(120%); } }
+    @keyframes pulseDot { 0%,100% { transform: scale(1); opacity: .8; } 50% { transform: scale(1.35); opacity: 1; } }
+    @keyframes wavePulse { 0%,100% { opacity: .28; transform: scaleY(.75); } 50% { opacity: .9; transform: scaleY(1.08); } }
+    @keyframes typing { 0%,100% { opacity: .32; transform: translateY(0); } 50% { opacity: 1; transform: translateY(-3px); } }
+
+    @media (max-width: 960px) { .hero-grid, .grid { grid-template-columns: 1fr; } .hero-stage { margin: 0 auto; } h1 { font-size: clamp(40px, 12vw, 64px); } .nav { position: static; } }
+    @media (prefers-reduced-motion: reduce) { * { animation-duration: .001ms !important; transition-duration: .001ms !important; } .stage-bubble { opacity: 1; transform: none; filter: none; } }
+  </style>
+</head>
+<body>
+  <section class="hero" id="hero">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <div class="hero-eyebrow"><span class="pulse-dot"></span> PRANTE · MVP для переводчика</div>
+        <h1>До перевода видно <span class="accent">всё важное.</span></h1>
+        <p class="hero-sub">ПРАНТЕ принимает текст или документ в Telegram, находит повторы и термины, предлагает глоссарий, готовит черновик и запоминает стиль переводчика.</p>
+        <div class="hero-cta-row">
+          <a class="cta-primary" href="#screen-1">Посмотреть MVP flow</a>
+          <a class="cta-ghost" href="./project-2-task-3-mvp-spec.md">Открыть спецификацию</a>
+        </div>
+        <p class="hero-hint">HTML-прототип: интерактивный, переносимый в Figma, готовый к коридорному тестированию.</p>
+      </div>
+
+      <div class="hero-stage" id="heroStage" aria-label="Демо чата ПРАНТЕ">
+        <div class="stage-head">
+          <div class="stage-avatar">П</div>
+          <div>
+            <div class="stage-name">ПРАНТЕ</div>
+            <div class="stage-status">в сети · анализирует текст</div>
+          </div>
+        </div>
+        <div class="stage-scroll" id="stageScroll">
+          <div class="stage-day">сегодня</div>
+          <div class="stage-bubble mine voice" data-delay="300">
+            <div class="voice-row">
+              <div class="voice-play"><svg viewBox="0 0 10 10"><path d="M2 1l6 4-6 4z"></path></svg></div>
+              <div class="voice-wave" aria-hidden="true">
+                <span style="--i:1;height:4px"></span><span style="--i:2;height:9px"></span><span style="--i:3;height:14px"></span><span style="--i:4;height:7px"></span><span style="--i:5;height:12px"></span><span style="--i:6;height:18px"></span><span style="--i:7;height:10px"></span><span style="--i:8;height:5px"></span><span style="--i:9;height:13px"></span><span style="--i:10;height:19px"></span><span style="--i:11;height:9px"></span><span style="--i:12;height:6px"></span><span style="--i:13;height:15px"></span><span style="--i:14;height:20px"></span><span style="--i:15;height:11px"></span><span style="--i:16;height:7px"></span><span style="--i:17;height:16px"></span><span style="--i:18;height:8px"></span><span style="--i:19;height:5px"></span><span style="--i:20;height:12px"></span><span style="--i:21;height:17px"></span><span style="--i:22;height:14px"></span><span style="--i:23;height:8px"></span><span style="--i:24;height:4px"></span><span style="--i:25;height:10px"></span><span style="--i:26;height:16px"></span><span style="--i:27;height:20px"></span><span style="--i:28;height:13px"></span><span style="--i:29;height:9px"></span><span style="--i:30;height:6px"></span>
+              </div>
+              <div class="voice-duration">0:16</div>
+            </div>
+            <div class="voice-auto-transcript">
+              <div class="voice-auto-label">РАСШИФРОВКА</div>
+              Заказчик прислал договор на перевод. Проверь повторы, выдели термины, собери глоссарий и сделай черновик.
+            </div>
+            <div class="bubble-meta">09:41</div>
+          </div>
+
+          <div class="stage-bubble file" data-delay="1150">
+            <div class="file-icon">DOCX</div>
+            <div><strong>contract_source.docx</strong><br><span style="color:var(--muted);font-size:12px">12 страниц · EN → RU</span></div>
+          </div>
+
+          <div class="typing" data-delay="1700"><span></span><span></span><span></span></div>
+
+          <div class="stage-bubble prante" data-delay="2450">
+            <div>Документ получен. Запускаю предпереводческий анализ: структура, повторы, термины, стиль.</div>
+            <div class="bubble-meta">09:42</div>
+            <div class="tool-history">
+              <div class="tool-history-item"><span class="th-icon">↳</span><span>Парсинг DOCX → 4 280 слов</span></div>
+              <div class="tool-history-item"><span class="th-icon">∑</span><span>Повторы и n-граммы → 23 совпадения</span></div>
+              <div class="tool-history-item"><span class="th-icon">#</span><span>Термины-кандидаты → 17 единиц</span></div>
+            </div>
+          </div>
+
+          <div class="typing" data-delay="3650"><span></span><span></span><span></span></div>
+
+          <div class="stage-bubble prante" data-delay="4400">
+            <div>Готово. Текст технический, терминологически чувствительный. Рекомендую закрепить 6 терминов до черновика.</div>
+            <div class="stage-chips">
+              <span class="stage-chip">23 повтора</span>
+              <span class="stage-chip">17 терминов</span>
+              <span class="stage-chip">3 риска стиля</span>
+            </div>
+            <div class="bubble-meta">09:43</div>
+          </div>
+
+          <div class="stage-bubble prante" data-delay="5600">
+            <div><strong>Черновик готов.</strong> Я применил глоссарий и отметил 4 места, где лучше проверить термин у заказчика.</div>
+            <div class="tool-history">
+              <div class="tool-history-item"><span class="th-icon">✓</span><span>effective date → дата начала действия</span></div>
+              <div class="tool-history-item"><span class="th-icon">✓</span><span>acceptance criteria → критерии приемки</span></div>
+              <div class="tool-history-item"><span class="th-icon">!</span><span>scope of work: нужен контекст проекта</span></div>
+            </div>
+            <div class="bubble-meta">09:44</div>
+          </div>
+
+          <div class="stage-bubble mine" data-delay="6900">Сохрани “scope of work” как “объем работ” для этого клиента.</div>
+          <div class="stage-bubble prante" data-delay="7800">Запомнил правило проекта. В следующем переводе применю его автоматически.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="header">
+      <div>
+        <div class="badge">PRANTE / Project 2 / Task 3</div>
+        <h2>Telegram-first MVP mockup</h2>
+        <p class="lead">Кликабельный mockup показывает минимальный законченный сценарий: входящий текст → анализ → глоссарий → черновой перевод → правки → запоминание предпочтений.</p>
+      </div>
+      <div class="meta">Формат: HTML mockup<br/>Назначение: MVP-прототип для команды и проверки</div>
+    </div>
+
+    <div class="grid">
+      <aside class="nav">
+        <h3>Экраны</h3>
+        <a href="#screen-1">1. Старт</a><a href="#screen-2">2. Ввод текста</a><a href="#screen-3">3. Анализ</a><a href="#screen-4">4. Глоссарий</a><a href="#screen-5">5. Черновой перевод</a><a href="#screen-6">6. Правки и обучение</a><a href="#screen-7">7. Эффект памяти</a>
+      </aside>
+
+      <main class="screens">
+        <section class="screen" id="screen-1"><h2>1. Start / Value proposition</h2><div class="telegram"><div class="tg-top">PRANTE Bot</div><div class="tg-body"><div class="msg">Привет! Я ПРАНТЕ — помощник для письменного переводчика. Помогу быстро разобрать текст перед переводом: найду повторы, термины, риски стиля и подготовлю черновик.</div><div class="actions"><a class="btn" href="#screen-2">Вставить текст</a><a class="btn secondary" href="#screen-2">Загрузить PDF/DOCX</a></div></div></div><div class="meta">Задача экрана: сразу показать ценность и Telegram-first формат.</div></section>
+        <section class="screen" id="screen-2"><h2>2. Input</h2><div class="telegram"><div class="tg-top">Новый анализ</div><div class="tg-body"><div class="msg user">Загружаю текст договора на перевод. Нужен быстрый предпереводческий разбор и черновик.</div><div class="msg">Файл получен. Что сделать сначала?</div><div class="actions"><a class="btn" href="#screen-3">Запустить анализ</a><a class="btn secondary" href="#screen-3">Анализ + черновик</a></div></div></div><div class="meta">Задача экрана: показать вход в сценарий через текст или документ.</div></section>
+        <section class="screen" id="screen-3"><h2>3. Pre-translation analysis</h2><div class="telegram"><div class="tg-top">Результат анализа</div><div class="tg-body"><div class="msg">Готово. Я нашёл:<div class="chips"><span class="chip">12 повторов</span><span class="chip">9 терминов-кандидатов</span><span class="chip">Жанр: технический</span><span class="chip warn">Риск: терминологическая неоднородность</span></div></div><div class="msg">Краткий вывод: текст формальный, терминологически чувствительный, требует единообразия переводов и аккуратной работы со сложными синтаксическими блоками.</div><div class="actions"><a class="btn" href="#screen-4">Посмотреть глоссарий</a><a class="btn secondary" href="#screen-5">Сразу сделать черновик</a></div></div></div><div class="meta">Задача экрана: показать core-value MVP до начала перевода.</div></section>
+        <section class="screen" id="screen-4"><h2>4. Glossary suggestions</h2><div class="telegram"><div class="tg-top">Термины и рекомендации</div><div class="tg-body"><div class="msg">Найденные термины:<ul><li><b>effective date</b> → дата начала действия</li><li><b>scope of work</b> → объем работ</li><li><b>acceptance criteria</b> → критерии приемки</li></ul></div><div class="actions"><a class="btn" href="#screen-5">Принять и сделать черновик</a><a class="btn secondary" href="#screen-5">Отредактировать термины</a></div></div></div><div class="meta">Задача экрана: показать персонализацию и контроль терминологии.</div></section>
+        <section class="screen" id="screen-5"><h2>5. Draft translation</h2><div class="telegram"><div class="tg-top">Черновой перевод</div><div class="tg-body"><div class="msg">Я подготовил черновой перевод с учетом выбранных терминов. Спорные места я отметил комментариями, чтобы их было проще вычитать.</div><div class="msg">Пример: “Scope of Work shall be approved before the Effective Date” → “Объем работ должен быть согласован до даты начала действия”.</div><div class="actions"><a class="btn" href="#screen-6">Внести правки</a><a class="btn secondary" href="#screen-6">Сравнить со стилем проекта</a></div></div></div><div class="meta">Задача экрана: показать draft translation как часть MVP, а не единственную функцию.</div></section>
+        <section class="screen" id="screen-6"><h2>6. Post-edit / save learning</h2><div class="telegram"><div class="tg-top">Правки пользователя</div><div class="tg-body"><div class="msg user">Для этого клиента “scope of work” всегда переводим как “объем работ”.</div><div class="msg">Понял. Сохранить это как правило проекта?</div><div class="actions"><a class="btn" href="#screen-7">Сохранить правило</a><a class="btn secondary" href="#screen-7">Только для этого документа</a></div></div></div><div class="meta">Задача экрана: показать learning loop и накопление памяти.</div></section>
+        <section class="screen" id="screen-7"><h2>7. Memory effect / result</h2><div class="telegram"><div class="tg-top">Что запомнил ПРАНТЕ</div><div class="tg-body"><div class="msg">Сохранено:<div class="chips"><span class="chip">scope of work → объем работ</span><span class="chip">Технический стиль проекта</span><span class="chip">Предпочтение: меньше буквальности</span></div></div><div class="msg">В следующий раз я использую эти правила автоматически и помогу быстрее собрать более точный черновик.</div><div class="actions"><a class="btn" href="#hero">Вернуться к hero</a></div></div></div><div class="note">Важно: это MVP mockup. Здесь показан целостный пользовательский сценарий и продуктовая логика. Реальная LLM, память и анализ будут реализовываться позже в коде.</div></section>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const params = new URLSearchParams(location.search);
+      if (params.get('video') === '1') document.body.classList.add('video-mode');
+      const scroll = document.getElementById('stageScroll');
+      const reveal = (el) => {
+        if (!el) return;
+        el.classList.add('visible');
+        if (scroll) scroll.scrollTo({ top: scroll.scrollHeight, behavior: 'smooth' });
+      };
+      const bubbles = Array.from(document.querySelectorAll('.stage-bubble'));
+      const typers = Array.from(document.querySelectorAll('.typing'));
+      [...bubbles, ...typers].forEach((el) => {
+        const delay = Number(el.dataset.delay || 0);
+        setTimeout(() => reveal(el), delay);
+        if (el.classList.contains('typing')) setTimeout(() => el.classList.remove('visible'), delay + 600);
+      });
+      const loop = () => {
+        setTimeout(() => {
+          bubbles.forEach((el) => el.classList.remove('visible'));
+          typers.forEach((el) => el.classList.remove('visible'));
+          if (scroll) scroll.scrollTo({ top: 0, behavior: 'instant' });
+          setTimeout(() => {
+            [...bubbles, ...typers].forEach((el) => {
+              const delay = Number(el.dataset.delay || 0);
+              setTimeout(() => reveal(el), delay);
+              if (el.classList.contains('typing')) setTimeout(() => el.classList.remove('visible'), delay + 600);
+            });
+            loop();
+          }, 380);
+        }, 10400);
+      };
+      if (!params.get('noLoop')) loop();
+    })();
+  </script>
+</body>
+</html>
