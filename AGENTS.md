@@ -27,9 +27,15 @@ This repository contains the PRANTE project: a Telegram-first assistant for tran
 
 - `docs/product/` — product brief and adaptive memory specification.
 - `docs/architecture/` — backend/API/data model drafts.
-- `docs/prototypes/final-mvp/` — static MVP prototype that can be opened locally.
+- `docs/prototypes/final-mvp/` — current static MVP prototype.
 - `docs/research/` — curated research/SSOT documents only.
 - `docs/templates/` — assignment/template material.
+
+## Why the web page code is under `docs/prototypes/`
+
+The current HTML is a **review/delivery prototype**, not a production web application. It lives under `docs/prototypes/final-mvp/` so the executable mockup stays together with its UX contract, team guide, editable content JSON, and assignment context.
+
+Do not treat this path as the final application architecture. If PRANTE becomes a real deployable web app later, move the implementation to `app/` or a dedicated frontend package and keep `docs/` for documentation only.
 
 ## Change discipline
 
