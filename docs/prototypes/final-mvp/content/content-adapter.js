@@ -7,6 +7,7 @@
     sheetGid: "",
     sheetEditUrl: "",
     refreshSeconds: 20,
+    localDraftKey: "",
   };
 
   function clone(value) {
@@ -138,6 +139,34 @@
     }));
   }
 
+  function contentToSheetRows(content, schema) {
+    return (schema || []).map((field) => ({
+      "Раздел": field.section || "",
+      "Поле": field.label || "",
+      "Текст": String(getPath(content, field.path) ?? ""),
+      "Подсказка": field.notes || "",
+      "Лимит": field.maxLength || "",
+    }));
+  }
+
+  function escapeCsvCell(value, delimiter) {
+    const text = String(value ?? "");
+    if (text.includes('"') || text.includes("\n") || text.includes("\r") || text.includes(delimiter)) {
+      return `"${text.replace(/"/g, '""')}"`;
+    }
+    return text;
+  }
+
+  function rowsToCsv(rows, options) {
+    const delimiter = (options && options.delimiter) || ",";
+    const headers = (options && options.headers) || ["Раздел", "Поле", "Текст", "Подсказка", "Лимит"];
+    const lines = [headers.map((header) => escapeCsvCell(header, delimiter)).join(delimiter)];
+    (rows || []).forEach((row) => {
+      lines.push(headers.map((header) => escapeCsvCell(row[header], delimiter)).join(delimiter));
+    });
+    return `${lines.join("\n")}\n`;
+  }
+
   function schemaKey(field) {
     return `${String(field.section || "").trim()}|||${String(field.label || "").trim()}`.toLowerCase();
   }
@@ -241,6 +270,7 @@
       sheetId: params.get("sheetId") || config.sheetId || "",
       sheetGid: params.get("sheetGid") || params.get("gid") || config.sheetGid || "",
       sheetEditUrl: params.get("sheetEditUrl") || config.sheetEditUrl || "",
+      localDraftKey: params.get("localDraftKey") || config.localDraftKey || "",
     };
   }
 
@@ -306,6 +336,14 @@
 
   async function loadSheetContent(sheetSource) {
     const config = typeof sheetSource === "string" ? { sheetCsvUrl: sheetSource } : (sheetSource || {});
+    if (config.localDraftKey && root.localStorage) {
+      try {
+        const text = root.localStorage.getItem(config.localDraftKey) || "";
+        return { rows: text ? parseCsv(text) : [], loaded: Boolean(text), error: null };
+      } catch (error) {
+        return { rows: [], loaded: false, error: error.message };
+      }
+    }
     if (config.sheetId) return loadGvizContent(config);
     if (!config.sheetCsvUrl) return { rows: [], loaded: false, error: null };
     try {
@@ -345,5 +383,7 @@
     loadSheetContent,
     gvizTableToRows,
     loadMergedContent,
+    contentToSheetRows,
+    rowsToCsv,
   };
 })(typeof window !== "undefined" ? window : globalThis);

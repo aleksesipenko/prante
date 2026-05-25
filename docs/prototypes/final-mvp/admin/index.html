@@ -9,7 +9,7 @@
     :root {
       color-scheme: light;
       --bg: #f4f1ea;
-      --panel: rgba(255,255,255,.78);
+      --panel: rgba(255,255,255,.86);
       --ink: #2b2f33;
       --muted: #66727c;
       --line: rgba(43,47,51,.12);
@@ -17,6 +17,7 @@
       --ok: #4f8f6b;
       --warn: #b46f14;
       --bad: #b93838;
+      --field: #fffdf8;
     }
     * { box-sizing: border-box; }
     body {
@@ -28,20 +29,21 @@
     }
     .wrap {
       display: grid;
-      grid-template-columns: minmax(360px, 430px) 1fr;
+      grid-template-columns: minmax(420px, 520px) 1fr;
       min-height: 100vh;
     }
     aside {
-      padding: 22px 18px 28px;
+      padding: 20px 18px 28px;
       border-right: 1px solid var(--line);
       background: var(--panel);
       backdrop-filter: blur(14px);
       overflow: auto;
+      max-height: 100vh;
     }
     main { min-width: 0; background: linear-gradient(180deg, #faf7f0, #efe9de); }
-    h1 { margin: 0 0 8px; font-size: 25px; letter-spacing: -.03em; }
-    p { margin: 0 0 16px; color: var(--muted); line-height: 1.45; }
-    .toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 16px; }
+    h1 { margin: 0 0 8px; font-size: 24px; letter-spacing: -.02em; }
+    p { margin: 0 0 14px; color: var(--muted); line-height: 1.45; }
+    .toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; }
     button, a.button {
       border: 0;
       border-radius: 10px;
@@ -54,9 +56,11 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      min-height: 38px;
     }
     .primary { background: var(--accent); color: #fff; }
     .ghost { background: #fff; color: var(--ink); border: 1px solid var(--line); }
+    .danger { background: #fff; color: var(--bad); border: 1px solid rgba(185,56,56,.28); }
     .disabled { opacity: .45; pointer-events: none; }
     .status {
       display: grid;
@@ -75,12 +79,33 @@
     .status.bad .dot { background: var(--bad); }
     .status-title { font-weight: 800; margin-bottom: 2px; }
     .status-text { color: var(--muted); font-size: 13px; line-height: 1.35; }
-    .section { margin: 18px 0 0; }
+    .tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      padding: 4px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255,255,255,.58);
+      margin-bottom: 14px;
+    }
+    .tab {
+      border-radius: 9px;
+      background: transparent;
+      color: var(--muted);
+    }
+    .tab.active {
+      background: #fff;
+      color: var(--ink);
+      box-shadow: 0 6px 18px rgba(43,47,51,.08);
+    }
+    .panel[hidden] { display: none; }
+    .section { margin: 16px 0 0; }
     .section h2 { margin: 0 0 8px; font-size: 15px; }
     .list {
       display: grid;
       gap: 8px;
-      max-height: 260px;
+      max-height: 220px;
       overflow: auto;
       padding-right: 2px;
     }
@@ -98,12 +123,82 @@
       font-size: 12px;
       color: var(--muted);
     }
-    iframe {
+    .editor-search {
       width: 100%;
-      height: 100vh;
-      border: 0;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-bottom: 10px;
+      font: inherit;
       background: #fff;
-      display: block;
+      color: var(--ink);
+    }
+    .editor-section {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.68);
+      border-radius: 12px;
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+    .editor-section summary {
+      cursor: pointer;
+      padding: 11px 12px;
+      font-size: 14px;
+      font-weight: 800;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .editor-section summary::-webkit-details-marker { display: none; }
+    .count { color: var(--muted); font-weight: 700; }
+    .field {
+      padding: 12px;
+      border-top: 1px solid var(--line);
+      background: var(--field);
+    }
+    .field-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: baseline;
+      margin-bottom: 6px;
+    }
+    .field label {
+      font-size: 13px;
+      font-weight: 800;
+    }
+    .limit {
+      color: var(--muted);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    .limit.warn { color: var(--warn); font-weight: 800; }
+    .limit.bad { color: var(--bad); font-weight: 800; }
+    .field textarea,
+    .field input {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px;
+      font: inherit;
+      font-size: 14px;
+      line-height: 1.35;
+      color: var(--ink);
+      background: #fff;
+      resize: vertical;
+    }
+    .field textarea:focus,
+    .field input:focus,
+    .editor-search:focus {
+      outline: 2px solid rgba(34,111,174,.22);
+      border-color: rgba(34,111,174,.55);
+    }
+    .note {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
     }
     .hint {
       margin-top: 10px;
@@ -114,10 +209,17 @@
       font-size: 13px;
       line-height: 1.4;
     }
+    iframe {
+      width: 100%;
+      height: 100vh;
+      border: 0;
+      background: #fff;
+      display: block;
+    }
     @media (max-width: 980px) {
       .wrap { grid-template-columns: 1fr; }
       iframe { height: 72vh; }
-      aside { border-right: 0; border-bottom: 1px solid var(--line); }
+      aside { max-height: none; border-right: 0; border-bottom: 1px solid var(--line); }
     }
   </style>
 </head>
@@ -125,12 +227,15 @@
   <div class="wrap">
     <aside>
       <h1>ПРАНТЕ — редакторский preview</h1>
-      <p>Тексты правятся в Google Sheets. Эта страница показывает, откуда загружен контент, есть ли ошибки, и как правки выглядят в Telegram-макете.</p>
+      <p>Можно править тексты прямо здесь: preview обновляется сразу, черновик сохраняется в этом браузере. Для общей версии экспортируйте CSV/JSON и зафиксируйте его через Sheets или Git.</p>
 
       <div class="toolbar">
         <a id="sheetLink" class="button primary disabled" href="#" target="_blank" rel="noreferrer">Открыть таблицу</a>
-        <button id="refreshBtn" class="ghost">Обновить preview</button>
-        <button id="copyUrlBtn" class="ghost">Скопировать ссылку</button>
+        <button id="refreshBtn" class="ghost">Обновить</button>
+        <button id="copyUrlBtn" class="ghost">Скопировать preview</button>
+        <button id="exportCsvBtn" class="ghost">Скачать CSV</button>
+        <button id="exportJsonBtn" class="ghost">Скачать JSON</button>
+        <button id="resetBtn" class="danger">Сбросить черновик</button>
       </div>
 
       <div id="status" class="status warn">
@@ -141,19 +246,32 @@
         </div>
       </div>
 
-      <div class="section">
-        <h2>Ошибки</h2>
-        <div id="errors" class="list"></div>
+      <div class="tabs">
+        <button id="editorTab" class="tab active">Редактор</button>
+        <button id="checksTab" class="tab">Проверки</button>
       </div>
 
-      <div class="section">
-        <h2>Предупреждения</h2>
-        <div id="warnings" class="list"></div>
-      </div>
+      <section id="editorPanel" class="panel">
+        <input id="search" class="editor-search" type="search" placeholder="Найти поле или текст" />
+        <div id="editor"></div>
+        <div class="hint">
+          Это локальный UI-черновик. Он не меняет сайт для всех сам по себе: чтобы сделать правки общими, экспортируйте CSV для Google Sheets или JSON для snapshot.
+        </div>
+      </section>
 
-      <div class="hint">
-        Если таблица ещё не подключена, прототип работает на fallback JSON из репозитория. Для подключения вставьте <code>sheetId</code>, <code>sheetGid</code>, published CSV URL и edit URL в <code>content/editor-config.json</code>.
-      </div>
+      <section id="checksPanel" class="panel" hidden>
+        <div class="section">
+          <h2>Ошибки</h2>
+          <div id="errors" class="list"></div>
+        </div>
+        <div class="section">
+          <h2>Предупреждения</h2>
+          <div id="warnings" class="list"></div>
+        </div>
+        <div class="hint">
+          Если Google Sheets ещё не подключён, базой служит fallback JSON из репозитория. Поля из UI-редактора накладываются поверх него только в этом браузере.
+        </div>
+      </section>
     </aside>
     <main>
       <iframe id="preview" src="../index.html"></iframe>
@@ -162,6 +280,8 @@
 
   <script src="../content/content-adapter.js"></script>
   <script>
+    const DRAFT_KEY = 'prante-admin-editor-draft-v1';
+    const PREVIEW_KEY = 'prante-admin-preview-csv-v1';
     const statusBox = document.getElementById('status');
     const errorsBox = document.getElementById('errors');
     const warningsBox = document.getElementById('warnings');
@@ -169,6 +289,47 @@
     const sheetLink = document.getElementById('sheetLink');
     const refreshBtn = document.getElementById('refreshBtn');
     const copyUrlBtn = document.getElementById('copyUrlBtn');
+    const exportCsvBtn = document.getElementById('exportCsvBtn');
+    const exportJsonBtn = document.getElementById('exportJsonBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const editorTab = document.getElementById('editorTab');
+    const checksTab = document.getElementById('checksTab');
+    const editorPanel = document.getElementById('editorPanel');
+    const checksPanel = document.getElementById('checksPanel');
+    const editor = document.getElementById('editor');
+    const search = document.getElementById('search');
+
+    let baseResult = null;
+    let currentContent = null;
+    let schema = [];
+    let draft = {};
+    let previewTimer = null;
+
+    function clone(value) {
+      return JSON.parse(JSON.stringify(value));
+    }
+
+    function loadDraft() {
+      try {
+        return JSON.parse(localStorage.getItem(DRAFT_KEY) || '{}');
+      } catch (error) {
+        return {};
+      }
+    }
+
+    function saveDraft() {
+      localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? '').replace(/[&<>"']/g, char => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;',
+      }[char]));
+    }
 
     function renderList(node, items, emptyText) {
       node.innerHTML = '';
@@ -182,7 +343,7 @@
       items.forEach(entry => {
         const item = document.createElement('div');
         item.className = 'item';
-        item.innerHTML = `<strong>${entry.message || entry.code}</strong><code>${entry.path || ''}</code>`;
+        item.innerHTML = `<strong>${escapeHtml(entry.message || entry.code)}</strong><code>${escapeHtml(entry.path || '')}</code>`;
         node.appendChild(item);
       });
     }
@@ -193,46 +354,207 @@
       statusBox.querySelector('.status-text').textContent = text;
     }
 
-    async function refreshStatus() {
+    function setTab(active) {
+      const editorActive = active === 'editor';
+      editorTab.classList.toggle('active', editorActive);
+      checksTab.classList.toggle('active', !editorActive);
+      editorPanel.hidden = !editorActive;
+      checksPanel.hidden = editorActive;
+    }
+
+    function buildContent() {
+      const content = clone(baseResult.content);
+      schema.forEach(field => {
+        if (Object.prototype.hasOwnProperty.call(draft, field.path)) {
+          PranteContentTools.setPath(content, field.path, draft[field.path]);
+        }
+      });
+      return content;
+    }
+
+    function updateValidation() {
+      const validation = PranteContentTools.validateContent(currentContent, schema);
+      const sheetWarnings = (baseResult.warnings || []).filter(item => item.code !== 'max_length');
+      const warnings = sheetWarnings.concat(validation.warnings);
+      const errors = validation.errors;
+
+      if (errors.length) {
+        setStatus('bad', 'Есть ошибки в тексте', `Исправьте ошибки перед экспортом. Локальных правок: ${Object.keys(draft).length}.`);
+      } else if (Object.keys(draft).length) {
+        setStatus('ok', 'Локальный черновик применён', `Preview обновлён. Предупреждений: ${warnings.length}.`);
+      } else if (baseResult.sheet.loaded) {
+        setStatus('ok', 'Sheets loaded', `Контент загружен из Google Sheets. Предупреждений: ${warnings.length}.`);
+      } else {
+        setStatus('warn', 'Работаем от fallback JSON', 'Таблица не подключена или недоступна. Можно править локальный черновик.');
+      }
+
+      renderList(errorsBox, errors, 'Ошибок нет.');
+      renderList(warningsBox, warnings, 'Предупреждений нет.');
+    }
+
+    function contentAsCsv() {
+      const rows = PranteContentTools.contentToSheetRows(currentContent, schema);
+      return PranteContentTools.rowsToCsv(rows);
+    }
+
+    function refreshPreview(immediate) {
+      clearTimeout(previewTimer);
+      const run = () => {
+        localStorage.setItem(PREVIEW_KEY, contentAsCsv());
+        preview.src = `../index.html?localDraftKey=${encodeURIComponent(PREVIEW_KEY)}&ts=${Date.now()}`;
+      };
+      if (immediate) run();
+      else previewTimer = setTimeout(run, 350);
+    }
+
+    function fieldValue(field) {
+      return Object.prototype.hasOwnProperty.call(draft, field.path)
+        ? draft[field.path]
+        : String(PranteContentTools.getPath(baseResult.content, field.path) ?? '');
+    }
+
+    function updateCounters() {
+      schema.forEach(field => {
+        const input = document.querySelector(`[data-path="${CSS.escape(field.path)}"]`);
+        const counter = document.querySelector(`[data-counter="${CSS.escape(field.path)}"]`);
+        if (!input || !counter) return;
+        const length = input.value.length;
+        const max = Number(field.maxLength || 0);
+        counter.textContent = max ? `${length}/${max}` : `${length}`;
+        counter.className = 'limit';
+        if (max && length > max) counter.classList.add('bad');
+        else if (max && length > max * 0.86) counter.classList.add('warn');
+      });
+    }
+
+    function renderEditor() {
+      const query = search.value.trim().toLowerCase();
+      const groups = new Map();
+      schema.forEach(field => {
+        const value = fieldValue(field);
+        const haystack = `${field.section} ${field.label} ${field.notes || ''} ${value}`.toLowerCase();
+        if (query && !haystack.includes(query)) return;
+        const section = field.section || 'Другое';
+        if (!groups.has(section)) groups.set(section, []);
+        groups.get(section).push(field);
+      });
+
+      editor.innerHTML = '';
+      groups.forEach((fields, section) => {
+        const details = document.createElement('details');
+        details.className = 'editor-section';
+        details.open = true;
+        details.innerHTML = `<summary>${escapeHtml(section)} <span class="count">${fields.length}</span></summary>`;
+
+        fields.forEach(field => {
+          const value = fieldValue(field);
+          const isLong = field.type === 'text' || value.length > 48;
+          const fieldNode = document.createElement('div');
+          fieldNode.className = 'field';
+          fieldNode.innerHTML = `
+            <div class="field-head">
+              <label for="${escapeHtml(field.path)}">${escapeHtml(field.label || field.path)}</label>
+              <span class="limit" data-counter="${escapeHtml(field.path)}"></span>
+            </div>
+            ${isLong
+              ? `<textarea id="${escapeHtml(field.path)}" data-path="${escapeHtml(field.path)}" rows="3">${escapeHtml(value)}</textarea>`
+              : `<input id="${escapeHtml(field.path)}" data-path="${escapeHtml(field.path)}" value="${escapeHtml(value)}" />`}
+            ${field.notes ? `<div class="note">${escapeHtml(field.notes)}</div>` : ''}
+          `;
+          details.appendChild(fieldNode);
+        });
+
+        editor.appendChild(details);
+      });
+      updateCounters();
+    }
+
+    function applyInputChange(target) {
+      const path = target.dataset.path;
+      if (!path) return;
+      draft[path] = target.value;
+      saveDraft();
+      currentContent = buildContent();
+      updateCounters();
+      updateValidation();
+      refreshPreview(false);
+    }
+
+    function downloadFile(name, mime, content) {
+      const blob = new Blob([content], { type: mime });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = name;
+      link.click();
+      URL.revokeObjectURL(url);
+    }
+
+    async function boot() {
       try {
-        const result = await PranteContentTools.loadMergedContent({ basePath: '..' });
-        if (result.config.sheetEditUrl) {
-          sheetLink.href = result.config.sheetEditUrl;
+        draft = loadDraft();
+        baseResult = await PranteContentTools.loadMergedContent({ basePath: '..' });
+        schema = baseResult.schema;
+        currentContent = buildContent();
+
+        if (baseResult.config.sheetEditUrl) {
+          sheetLink.href = baseResult.config.sheetEditUrl;
           sheetLink.classList.remove('disabled');
         }
 
-        if (result.errors.length) {
-          setStatus('bad', 'Есть ошибки контента', 'Preview работает на доступных данных, но перед сдачей ошибки нужно исправить.');
-        } else if (result.sheet.loaded) {
-          setStatus('ok', 'Sheets loaded', `Контент загружен из Google Sheets. Предупреждений: ${result.warnings.length}.`);
-        } else if (result.config.sheetCsvUrl) {
-          setStatus('warn', 'Sheets недоступен', `Используется fallback JSON. Ошибка: ${result.sheet.error || 'нет данных'}`);
-        } else {
-          setStatus('warn', 'Таблица не подключена', 'Используется fallback JSON. Добавьте published CSV URL в editor-config.json.');
-        }
-
-        renderList(errorsBox, result.errors, 'Ошибок нет.');
-        renderList(warningsBox, result.warnings, 'Предупреждений нет.');
+        renderEditor();
+        updateValidation();
+        refreshPreview(true);
       } catch (error) {
-        setStatus('bad', 'Preview не проверен', error.message);
+        setStatus('bad', 'Админка не загрузилась', error.message);
         renderList(errorsBox, [{ code: 'load_failed', message: error.message }], '');
         renderList(warningsBox, [], 'Предупреждений нет.');
       }
     }
 
-    refreshBtn.addEventListener('click', () => {
-      preview.src = `../index.html?ts=${Date.now()}`;
-      refreshStatus();
+    editor.addEventListener('input', event => {
+      if (event.target.matches('[data-path]')) applyInputChange(event.target);
+    });
+
+    search.addEventListener('input', renderEditor);
+    editorTab.addEventListener('click', () => setTab('editor'));
+    checksTab.addEventListener('click', () => setTab('checks'));
+
+    refreshBtn.addEventListener('click', async () => {
+      baseResult = await PranteContentTools.loadMergedContent({ basePath: '..' });
+      currentContent = buildContent();
+      renderEditor();
+      updateValidation();
+      refreshPreview(true);
     });
 
     copyUrlBtn.addEventListener('click', async () => {
-      await navigator.clipboard.writeText(new URL('../index.html', window.location.href).href);
+      await navigator.clipboard.writeText(preview.contentWindow.location.href);
       copyUrlBtn.textContent = 'Ссылка скопирована';
-      setTimeout(() => { copyUrlBtn.textContent = 'Скопировать ссылку'; }, 1600);
+      setTimeout(() => { copyUrlBtn.textContent = 'Скопировать preview'; }, 1600);
     });
 
-    preview.addEventListener('load', refreshStatus);
-    refreshStatus();
+    exportCsvBtn.addEventListener('click', () => {
+      const rows = PranteContentTools.contentToSheetRows(currentContent, schema);
+      downloadFile('prante-editor-texts.csv', 'text/csv;charset=utf-8', PranteContentTools.rowsToCsv(rows, { delimiter: ';' }));
+    });
+
+    exportJsonBtn.addEventListener('click', () => {
+      downloadFile('prante-content.json', 'application/json;charset=utf-8', `${JSON.stringify(currentContent, null, 2)}\n`);
+    });
+
+    resetBtn.addEventListener('click', () => {
+      const confirmed = window.confirm('Сбросить локальный черновик в этом браузере?');
+      if (!confirmed) return;
+      draft = {};
+      saveDraft();
+      currentContent = buildContent();
+      renderEditor();
+      updateValidation();
+      refreshPreview(true);
+    });
+
+    boot();
   </script>
 </body>
 </html>
