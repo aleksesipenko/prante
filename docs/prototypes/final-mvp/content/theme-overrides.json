@@ -1,0 +1,27 @@
+{
+  "version": "2026-05-25",
+  "vars": {
+    "--theme-page-start": "#F7F3EC",
+    "--theme-page-end": "#F4F1EA",
+    "--theme-ink": "#2B2F33",
+    "--theme-muted": "#66727C",
+    "--theme-line": "rgba(43,47,51,0.12)",
+    "--theme-accent": "#2F88D8",
+    "--theme-accent-strong": "#226FAE",
+    "--theme-phone-start": "#26333F",
+    "--theme-phone-end": "#1D2832",
+    "--theme-wallpaper-top": "#E7F2F9",
+    "--theme-wallpaper-bottom": "#D7E9F4",
+    "--theme-avatar-bg": "#FDFBF8",
+    "--theme-avatar-ring": "#D9DEDF",
+    "--theme-avatar-logo-scale": "80%",
+    "--theme-avatar-logo-y": "42%",
+    "--theme-bubble-bot": "#FFFFFF",
+    "--theme-bubble-user": "#DFECE6",
+    "--theme-success": "#5D8C7A",
+    "--theme-success-soft": "#DFECE6",
+    "--theme-menu-start": "#A8792B",
+    "--theme-menu-end": "#FF7F6E",
+    "--theme-icon-ink": "#3A4654"
+  }
+}

@@ -1,0 +1,634 @@
+{
+  "fields": [
+    {
+      "section": "Старт",
+      "path": "meta.title",
+      "label": "Название страницы",
+      "type": "string",
+      "required": true,
+      "maxLength": 80,
+      "notes": "Показывается в заголовке вкладки браузера."
+    },
+    {
+      "section": "Старт",
+      "path": "botHeader.name",
+      "label": "Название бота",
+      "type": "string",
+      "required": true,
+      "maxLength": 20,
+      "notes": "Короткое имя в шапке чата."
+    },
+    {
+      "section": "Старт",
+      "path": "botHeader.statusIdle",
+      "label": "Статус: ожидание",
+      "type": "string",
+      "required": true,
+      "maxLength": 28,
+      "notes": "Подпись под названием бота до начала работы."
+    },
+    {
+      "section": "Старт",
+      "path": "botHeader.statusWorking",
+      "label": "Статус: работа",
+      "type": "string",
+      "required": true,
+      "maxLength": 28,
+      "notes": "Подпись под названием бота во время анализа."
+    },
+    {
+      "section": "Старт",
+      "path": "botHeader.statusDone",
+      "label": "Статус: готово",
+      "type": "string",
+      "required": true,
+      "maxLength": 28,
+      "notes": "Подпись под названием бота после анализа."
+    },
+    {
+      "section": "Старт",
+      "path": "chat.dateLabel",
+      "label": "Дата в чате",
+      "type": "string",
+      "required": true,
+      "maxLength": 20,
+      "notes": "Обычно «Сегодня»."
+    },
+    {
+      "section": "Старт",
+      "path": "chat.startMessage",
+      "label": "Стартовое сообщение",
+      "type": "text",
+      "required": true,
+      "maxLength": 180,
+      "notes": "Не начинайте с «Здравствуйте»: приветствие уже добавляется отдельно."
+    },
+    {
+      "section": "Старт",
+      "path": "chat.startHint",
+      "label": "Подсказка старта",
+      "type": "text",
+      "required": true,
+      "maxLength": 120,
+      "notes": "Курсив под первым сообщением."
+    },
+    {
+      "section": "Стартовые кнопки",
+      "path": "chat.commands[0]",
+      "label": "Кнопка 1",
+      "type": "string",
+      "required": true,
+      "maxLength": 26,
+      "notes": "Короткая подпись inline-кнопки."
+    },
+    {
+      "section": "Стартовые кнопки",
+      "path": "chat.commands[1]",
+      "label": "Кнопка 2",
+      "type": "string",
+      "required": true,
+      "maxLength": 26,
+      "notes": "Короткая подпись inline-кнопки."
+    },
+    {
+      "section": "Стартовые кнопки",
+      "path": "chat.commands[2]",
+      "label": "Кнопка 3",
+      "type": "string",
+      "required": true,
+      "maxLength": 26,
+      "notes": "Короткая подпись inline-кнопки."
+    },
+    {
+      "section": "Стартовые кнопки",
+      "path": "chat.commands[3]",
+      "label": "Кнопка 4",
+      "type": "string",
+      "required": true,
+      "maxLength": 26,
+      "notes": "Короткая подпись inline-кнопки."
+    },
+    {
+      "section": "Сценарий",
+      "path": "chat.userMessage",
+      "label": "Сообщение пользователя",
+      "type": "text",
+      "required": true,
+      "maxLength": 130,
+      "notes": "Первый запрос пользователя."
+    },
+    {
+      "section": "Сценарий",
+      "path": "chat.fileTitle",
+      "label": "Название файла",
+      "type": "string",
+      "required": true,
+      "maxLength": 42,
+      "notes": "Заголовок документа в пузыре файла."
+    },
+    {
+      "section": "Сценарий",
+      "path": "chat.fileMeta",
+      "label": "Описание файла",
+      "type": "string",
+      "required": true,
+      "maxLength": 60,
+      "notes": "Страницы и языковая пара."
+    },
+    {
+      "section": "Ход работы",
+      "path": "progress.steps[0].label",
+      "label": "Шаг 1: название",
+      "type": "string",
+      "required": true,
+      "maxLength": 34,
+      "notes": "Название строки прогресса."
+    },
+    {
+      "section": "Ход работы",
+      "path": "progress.steps[0].detail",
+      "label": "Шаг 1: деталь",
+      "type": "string",
+      "required": true,
+      "maxLength": 56,
+      "notes": "Результат после выполнения шага."
+    },
+    {
+      "section": "Ход работы",
+      "path": "progress.steps[1].label",
+      "label": "Шаг 2: название",
+      "type": "string",
+      "required": true,
+      "maxLength": 34,
+      "notes": "Название строки прогресса."
+    },
+    {
+      "section": "Ход работы",
+      "path": "progress.steps[1].detail",
+      "label": "Шаг 2: деталь",
+      "type": "string",
+      "required": true,
+      "maxLength": 56,
+      "notes": "Результат после выполнения шага."
+    },
+    {
+      "section": "Ход работы",
+      "path": "progress.steps[2].label",
+      "label": "Шаг 3: название",
+      "type": "string",
+      "required": true,
+      "maxLength": 34,
+      "notes": "Название строки прогресса."
+    },
+    {
+      "section": "Ход работы",
+      "path": "progress.steps[2].detail",
+      "label": "Шаг 3: деталь",
+      "type": "string",
+      "required": true,
+      "maxLength": 56,
+      "notes": "Результат после выполнения шага."
+    },
+    {
+      "section": "Ход работы",
+      "path": "progress.steps[3].label",
+      "label": "Шаг 4: название",
+      "type": "string",
+      "required": true,
+      "maxLength": 34,
+      "notes": "Название строки прогресса."
+    },
+    {
+      "section": "Ход работы",
+      "path": "progress.steps[3].detail",
+      "label": "Шаг 4: деталь",
+      "type": "string",
+      "required": true,
+      "maxLength": 56,
+      "notes": "Результат после выполнения шага."
+    },
+    {
+      "section": "Ход работы",
+      "path": "progress.steps[4].label",
+      "label": "Шаг 5: название",
+      "type": "string",
+      "required": true,
+      "maxLength": 34,
+      "notes": "Название строки прогресса."
+    },
+    {
+      "section": "Ход работы",
+      "path": "progress.steps[4].detail",
+      "label": "Шаг 5: деталь",
+      "type": "string",
+      "required": true,
+      "maxLength": 56,
+      "notes": "Результат после выполнения шага."
+    },
+    {
+      "section": "Отчёт",
+      "path": "report.summaryTitle",
+      "label": "Заголовок отчёта",
+      "type": "string",
+      "required": true,
+      "maxLength": 40,
+      "notes": "Заголовок в сообщении отчёта."
+    },
+    {
+      "section": "Отчёт",
+      "path": "report.metrics[0].value",
+      "label": "Метрика 1: число",
+      "type": "string",
+      "required": true,
+      "maxLength": 8,
+      "notes": "Например: 23."
+    },
+    {
+      "section": "Отчёт",
+      "path": "report.metrics[0].label",
+      "label": "Метрика 1: подпись",
+      "type": "string",
+      "required": true,
+      "maxLength": 32,
+      "notes": "Например: повтора."
+    },
+    {
+      "section": "Отчёт",
+      "path": "report.metrics[1].value",
+      "label": "Метрика 2: число",
+      "type": "string",
+      "required": true,
+      "maxLength": 8,
+      "notes": "Например: 17."
+    },
+    {
+      "section": "Отчёт",
+      "path": "report.metrics[1].label",
+      "label": "Метрика 2: подпись",
+      "type": "string",
+      "required": true,
+      "maxLength": 32,
+      "notes": "Например: терминов."
+    },
+    {
+      "section": "Отчёт",
+      "path": "report.metrics[2].value",
+      "label": "Метрика 3: число",
+      "type": "string",
+      "required": true,
+      "maxLength": 8,
+      "notes": "Например: 3."
+    },
+    {
+      "section": "Отчёт",
+      "path": "report.metrics[2].label",
+      "label": "Метрика 3: подпись",
+      "type": "string",
+      "required": true,
+      "maxLength": 32,
+      "notes": "Например: риска стиля."
+    },
+    {
+      "section": "Отчёт",
+      "path": "report.summary[0]",
+      "label": "Резюме отчёта",
+      "type": "text",
+      "required": true,
+      "maxLength": 180,
+      "notes": "Первый абзац отчёта."
+    },
+    {
+      "section": "Отчёт",
+      "path": "report.risksTitle",
+      "label": "Заголовок рисков",
+      "type": "string",
+      "required": true,
+      "maxLength": 40,
+      "notes": "Заголовок перед списком рисков."
+    },
+    {
+      "section": "Отчёт",
+      "path": "report.risks[0]",
+      "label": "Риск 1",
+      "type": "string",
+      "required": true,
+      "maxLength": 70,
+      "notes": "Короткий пункт списка."
+    },
+    {
+      "section": "Отчёт",
+      "path": "report.risks[1]",
+      "label": "Риск 2",
+      "type": "string",
+      "required": true,
+      "maxLength": 70,
+      "notes": "Короткий пункт списка."
+    },
+    {
+      "section": "Отчёт",
+      "path": "report.risks[2]",
+      "label": "Риск 3",
+      "type": "string",
+      "required": true,
+      "maxLength": 70,
+      "notes": "Короткий пункт списка."
+    },
+    {
+      "section": "Отчёт",
+      "path": "report.termsTitle",
+      "label": "Заголовок терминов",
+      "type": "string",
+      "required": true,
+      "maxLength": 50,
+      "notes": "Заголовок перед глоссарием в отчёте."
+    },
+    {
+      "section": "Отчёт",
+      "path": "report.buttons[0]",
+      "label": "Кнопка отчёта 1",
+      "type": "string",
+      "required": true,
+      "maxLength": 26,
+      "notes": "Кнопка под отчётом."
+    },
+    {
+      "section": "Отчёт",
+      "path": "report.buttons[1]",
+      "label": "Кнопка отчёта 2",
+      "type": "string",
+      "required": true,
+      "maxLength": 26,
+      "notes": "Кнопка под отчётом."
+    },
+    {
+      "section": "Отчёт",
+      "path": "report.buttons[2]",
+      "label": "Кнопка отчёта 3",
+      "type": "string",
+      "required": true,
+      "maxLength": 26,
+      "notes": "Кнопка под отчётом."
+    },
+    {
+      "section": "Глоссарий",
+      "path": "glossary.items[0].source",
+      "label": "Термин 1: исходный",
+      "type": "string",
+      "required": true,
+      "maxLength": 42,
+      "notes": "Исходный термин."
+    },
+    {
+      "section": "Глоссарий",
+      "path": "glossary.items[0].target",
+      "label": "Термин 1: перевод",
+      "type": "string",
+      "required": true,
+      "maxLength": 42,
+      "notes": "Рекомендуемый перевод."
+    },
+    {
+      "section": "Глоссарий",
+      "path": "glossary.items[0].note",
+      "label": "Термин 1: примечание",
+      "type": "string",
+      "required": true,
+      "maxLength": 70,
+      "notes": "Короткая подсказка."
+    },
+    {
+      "section": "Глоссарий",
+      "path": "glossary.items[1].source",
+      "label": "Термин 2: исходный",
+      "type": "string",
+      "required": true,
+      "maxLength": 42,
+      "notes": "Исходный термин."
+    },
+    {
+      "section": "Глоссарий",
+      "path": "glossary.items[1].target",
+      "label": "Термин 2: перевод",
+      "type": "string",
+      "required": true,
+      "maxLength": 42,
+      "notes": "Рекомендуемый перевод."
+    },
+    {
+      "section": "Глоссарий",
+      "path": "glossary.items[1].note",
+      "label": "Термин 2: примечание",
+      "type": "string",
+      "required": true,
+      "maxLength": 70,
+      "notes": "Короткая подсказка."
+    },
+    {
+      "section": "Глоссарий",
+      "path": "glossary.items[2].source",
+      "label": "Термин 3: исходный",
+      "type": "string",
+      "required": true,
+      "maxLength": 42,
+      "notes": "Исходный термин."
+    },
+    {
+      "section": "Глоссарий",
+      "path": "glossary.items[2].target",
+      "label": "Термин 3: перевод",
+      "type": "string",
+      "required": true,
+      "maxLength": 42,
+      "notes": "Рекомендуемый перевод."
+    },
+    {
+      "section": "Глоссарий",
+      "path": "glossary.items[2].note",
+      "label": "Термин 3: примечание",
+      "type": "string",
+      "required": true,
+      "maxLength": 70,
+      "notes": "Короткая подсказка."
+    },
+    {
+      "section": "Черновик",
+      "path": "chat.glossaryUserAction",
+      "label": "Действие: принять термины",
+      "type": "string",
+      "required": true,
+      "maxLength": 50,
+      "notes": "Сообщение пользователя после отчёта."
+    },
+    {
+      "section": "Черновик",
+      "path": "chat.glossaryBotReply",
+      "label": "Ответ после глоссария",
+      "type": "text",
+      "required": true,
+      "maxLength": 180,
+      "notes": "Ответ бота после подтверждения терминов."
+    },
+    {
+      "section": "Черновик",
+      "path": "chat.draftUserAction",
+      "label": "Действие: сделать черновик",
+      "type": "string",
+      "required": true,
+      "maxLength": 42,
+      "notes": "Сообщение пользователя."
+    },
+    {
+      "section": "Черновик",
+      "path": "chat.draftTitle",
+      "label": "Заголовок черновика",
+      "type": "string",
+      "required": true,
+      "maxLength": 40,
+      "notes": "Заголовок сообщения с черновиком."
+    },
+    {
+      "section": "Черновик",
+      "path": "chat.draftText",
+      "label": "Текст черновика",
+      "type": "text",
+      "required": true,
+      "maxLength": 180,
+      "notes": "Краткое описание результата."
+    },
+    {
+      "section": "Черновик",
+      "path": "chat.draftWarning",
+      "label": "Предупреждение черновика",
+      "type": "string",
+      "required": true,
+      "maxLength": 70,
+      "notes": "Курсивная строка под текстом черновика."
+    },
+    {
+      "section": "Память",
+      "path": "chat.editUserAction",
+      "label": "Правка пользователя",
+      "type": "text",
+      "required": true,
+      "maxLength": 120,
+      "notes": "Сообщение с правкой черновика."
+    },
+    {
+      "section": "Память",
+      "path": "chat.memoryTitle",
+      "label": "Заголовок памяти",
+      "type": "string",
+      "required": true,
+      "maxLength": 40,
+      "notes": "Заголовок предложения сохранить правило."
+    },
+    {
+      "section": "Память",
+      "path": "chat.memoryRuleSource",
+      "label": "Правило: исходный термин",
+      "type": "string",
+      "required": true,
+      "maxLength": 60,
+      "notes": "Левая часть правила памяти."
+    },
+    {
+      "section": "Память",
+      "path": "chat.memoryRuleTarget",
+      "label": "Правило: перевод",
+      "type": "string",
+      "required": true,
+      "maxLength": 60,
+      "notes": "Правая часть правила памяти."
+    },
+    {
+      "section": "Память",
+      "path": "chat.memoryText",
+      "label": "Текст памяти",
+      "type": "text",
+      "required": true,
+      "maxLength": 180,
+      "notes": "Почему стоит сохранить правило."
+    },
+    {
+      "section": "Память",
+      "path": "chat.memoryButtons[0]",
+      "label": "Кнопка памяти 1",
+      "type": "string",
+      "required": true,
+      "maxLength": 28,
+      "notes": "Кнопка сохранения."
+    },
+    {
+      "section": "Память",
+      "path": "chat.memoryButtons[1]",
+      "label": "Кнопка памяти 2",
+      "type": "string",
+      "required": true,
+      "maxLength": 28,
+      "notes": "Кнопка одноразового использования."
+    },
+    {
+      "section": "Память",
+      "path": "chat.memoryButtons[2]",
+      "label": "Кнопка памяти 3",
+      "type": "string",
+      "required": true,
+      "maxLength": 28,
+      "notes": "Кнопка отказа."
+    },
+    {
+      "section": "Финал",
+      "path": "chat.memoryUserAction",
+      "label": "Действие: сохранить",
+      "type": "string",
+      "required": true,
+      "maxLength": 60,
+      "notes": "Сообщение пользователя перед финалом."
+    },
+    {
+      "section": "Финал",
+      "path": "chat.finalTitle",
+      "label": "Финальный заголовок",
+      "type": "string",
+      "required": true,
+      "maxLength": 36,
+      "notes": "Заголовок финального сообщения."
+    },
+    {
+      "section": "Финал",
+      "path": "chat.finalText",
+      "label": "Финальный текст",
+      "type": "text",
+      "required": true,
+      "maxLength": 180,
+      "notes": "Последнее сообщение бота."
+    },
+    {
+      "section": "Управление демо",
+      "path": "controls.motion",
+      "label": "Кнопка движения",
+      "type": "string",
+      "required": true,
+      "maxLength": 26,
+      "notes": "Подпись/смысл кнопки управления анимацией."
+    },
+    {
+      "section": "Управление демо",
+      "path": "controls.final",
+      "label": "Кнопка финала",
+      "type": "string",
+      "required": true,
+      "maxLength": 26,
+      "notes": "Переход сразу к финалу."
+    },
+    {
+      "section": "Управление демо",
+      "path": "controls.restart",
+      "label": "Кнопка перезапуска",
+      "type": "string",
+      "required": true,
+      "maxLength": 26,
+      "notes": "Перезапуск сценария."
+    }
+  ]
+}

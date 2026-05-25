@@ -17,6 +17,7 @@
 
 - `docs/prototypes/final-mvp/index.html` — главный bot-first HTML-прототип.
 - `docs/prototypes/final-mvp/content/prante-content.json` — видимые тексты прототипа.
+- `docs/prototypes/final-mvp/EDITORIAL_WORKFLOW.md` — редакторский контур Google Sheets → preview → Git snapshot.
 - `docs/prototypes/final-mvp/BOT_FLOW_CONTRACT.md` — будущие callback/action состояния Telegram-бота.
 - `docs/prototypes/final-mvp/TEAM_GUIDE.md` — короткий гайд для команды.
 - `docs/prototypes/project-2-task-3-mvp-spec.md` — постановка задачи на MVP-прототип.
@@ -25,6 +26,7 @@
 
 - `docs/product/product-brief.md` — краткое описание продукта, аудитории и отличия от CAT-инструментов.
 - `docs/product/adaptive_translation_memory_spec.md` — спецификация адаптивной памяти, глоссария и подтверждения правил пользователем.
+- `docs/brand/prante-design-pack/README.md` — бренд-пакет: logo SSOT из пользовательского архива + сохранённые дизайн-токены.
 - `docs/architecture/backend_overview.md` — модульная схема backend.
 - `docs/architecture/data_model.md` — черновая схема данных MVP.
 - `docs/architecture/api_contract.md` — черновой API/event contract.

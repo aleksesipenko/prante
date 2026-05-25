@@ -8,6 +8,7 @@
 
 - `docs/prototypes/final-mvp/index.html` — текущий bot-first MVP-прототип.
 - `docs/prototypes/final-mvp/content/prante-content.json` — видимые тексты прототипа.
+- `docs/prototypes/final-mvp/EDITORIAL_WORKFLOW.md` — как команда редактирует тексты через Google Sheets.
 - `docs/prototypes/final-mvp/BOT_FLOW_CONTRACT.md` — соответствие экранов будущим действиям Telegram-бота.
 - `docs/prototypes/project-2-task-3-mvp-spec.md` — постановка задачи MVP-прототипа.
 
@@ -34,6 +35,7 @@ python3 -m http.server 8777
 - `docs/INTERNAL_DOCS.md` — короткая навигация по репозиторию и источникам истины.
 - `docs/product/product-brief.md` — краткое описание продукта и аудитории.
 - `docs/product/adaptive_translation_memory_spec.md` — спецификация памяти, глоссария и approval-loop.
+- `docs/brand/prante-design-pack/README.md` — бренд-пакет: logo SSOT из пользовательского архива + сохранённые дизайн-токены.
 - `docs/architecture/backend_overview.md` — модульная схема backend.
 - `docs/architecture/data_model.md` — черновая схема данных MVP.
 - `docs/architecture/api_contract.md` — черновой API/event contract.
@@ -49,6 +51,12 @@ python3 -m http.server 8777
 - Оценка рисков стиля и читабельности.
 - Черновой перевод с учётом выбранных терминов.
 - Сохранение терминов/правил в память только после подтверждения пользователя.
+
+## Редактирование текстов прототипа
+
+Для команды переводчиков основным редакторским источником является Google Sheets: редакторы меняют только текстовые значения, а прототип подтягивает published CSV и показывает preview в `docs/prototypes/final-mvp/admin/`.
+
+`docs/prototypes/final-mvp/content/prante-content.json` остаётся fallback/snapshot в Git: сайт использует его, если Google Sheets недоступен, а разработчик может синхронизировать финальные тексты обратно в репозиторий.
 
 ## Архитектурный принцип
 

@@ -3,201 +3,294 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ПРАНТЕ — прототип Telegram-бота</title>
+  <title>ПРАНТЕ — прототип</title>
+  <link rel="icon" type="image/png" href="assets/prante-icon-teal.png" />
   <style>
     :root {
       color-scheme: light;
-      --page: #f4f1ea;
-      --paper: #fffdf8;
-      --ink: #1d2329;
-      --muted: #66727c;
-      --soft: #edf3f6;
-      --line: rgba(47, 63, 78, .14);
-      --telegram: #2f88d8;
-      --telegram-dark: #226fae;
-      --sage: #5d8c7a;
-      --sage-soft: #dfece6;
-      --amber: #a8792b;
-      --amber-soft: #f2e7d2;
-      --coral: #b9655d;
-      --phone: #26333f;
-      --phone-2: #1d2832;
-      --bubble: #ffffff;
-      --bubble-bot: #f7f9fb;
-      --bubble-user: #d9eefc;
-      --shadow: 0 30px 80px rgba(38, 51, 63, .20);
-      --radius: 26px;
-      --speed: 1;
+      --theme-page-start: #F7F3EC;
+      --theme-page-end: #F4F1EA;
+      --theme-ink: #2B2F33;
+      --theme-muted: #66727C;
+      --theme-line: rgba(43,47,51,.12);
+      --theme-accent: #2F88D8;
+      --theme-accent-strong: #226FAE;
+      --theme-avatar-bg: #FDFBF8;
+      --theme-avatar-ring: #D9DEDF;
+      --theme-avatar-logo-scale: 80%;
+      --theme-avatar-logo-y: 42%;
+      --theme-phone-start: #26333F;
+      --theme-phone-end: #1D2832;
+      --theme-page: var(--theme-page-end);
+      --page: var(--theme-page-end);
+      --ink: var(--theme-ink);
+      --muted: var(--theme-muted);
+      --line: var(--theme-line);
+      --accent: var(--theme-accent);
     }
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body { margin: 0; background: radial-gradient(circle at 12% 8%, rgba(93,140,122,.14), transparent 30%), linear-gradient(180deg, #f7f3ec, var(--page)); color: var(--ink); font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; }
-    body.reduced * { animation-duration: .001ms !important; transition-duration: .001ms !important; }
-    .shell { width: min(1180px, calc(100% - 36px)); margin: 0 auto; }
-    .hero { min-height: 100vh; display: grid; grid-template-columns: minmax(320px, .82fr) minmax(340px, 1.18fr); gap: clamp(28px, 5vw, 72px); align-items: center; padding: 28px 0 48px; }
-    .brandbar { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 34px; }
-    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: -.03em; }
-    .brand-mark { width: 34px; height: 34px; border-radius: 11px; display: grid; place-items: center; background: var(--phone); color: #fff; font-size: 15px; }
-    .badge { display: inline-flex; width: fit-content; border: 1px solid var(--line); background: rgba(255,255,255,.58); color: var(--sage); border-radius: 999px; padding: 7px 11px; font-size: 13px; font-weight: 700; }
-    h1 { margin: 16px 0 18px; font-size: clamp(42px, 6vw, 70px); line-height: .98; letter-spacing: -.055em; max-width: 640px; text-wrap: balance; }
-    .lead { margin: 0; color: var(--muted); font-size: clamp(17px, 1.8vw, 21px); line-height: 1.55; max-width: 620px; }
-    .cta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
-    button, .button { font: inherit; border: 0; cursor: pointer; min-height: 44px; }
-    .button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; border-radius: 14px; padding: 12px 15px; font-weight: 800; }
-    .button.primary { color: #fff; background: var(--telegram); box-shadow: 0 14px 34px rgba(47,136,216,.22); }
-    .button.secondary { color: var(--ink); background: rgba(255,255,255,.66); border: 1px solid var(--line); }
-    .note-card { margin-top: 26px; border: 1px solid var(--line); border-radius: 20px; padding: 18px; background: rgba(255,255,255,.62); }
-    .note-card strong { display: block; margin-bottom: 8px; }
-    .note-card p { margin: 0; color: var(--muted); line-height: 1.5; }
-    .stage-wrap { display: grid; grid-template-columns: minmax(330px, 460px) minmax(260px, 1fr); gap: 20px; align-items: stretch; }
-    .phone { height: min(760px, calc(100vh - 44px)); min-height: 650px; border-radius: 34px; background: linear-gradient(180deg, var(--phone), var(--phone-2)); padding: 12px; box-shadow: var(--shadow); border: 1px solid rgba(255,255,255,.38); position: relative; overflow: hidden; }
-    .screen { height: 100%; border-radius: 26px; background: #dcecf7; overflow: hidden; display: flex; flex-direction: column; border: 1px solid rgba(0,0,0,.09); }
-    .chat-head { height: 64px; background: #ffffff; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 14px; border-bottom: 1px solid rgba(0,0,0,.08); flex: 0 0 auto; }
-    .bot-id { display: flex; align-items: center; gap: 10px; min-width: 0; }
-    .avatar { width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(135deg, #e8f3ed, #bfd8cd); color: #24483a; font-weight: 900; border: 1px solid rgba(36,72,58,.12); }
-    .bot-name { font-weight: 850; letter-spacing: -.02em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .bot-status { color: var(--muted); font-size: 12.5px; margin-top: 2px; }
-    .menu { color: var(--telegram-dark); font-weight: 750; font-size: 14px; flex: 0 0 auto; }
-    .chat { flex: 1 1 auto; min-height: 0; overflow: hidden; position: relative; padding: 14px 13px 16px; display: flex; flex-direction: column; gap: 9px; background: linear-gradient(180deg, #e7f2f9, #d7e9f4); }
-    .chat::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(255,255,255,.65) 1px, transparent 1px); background-size: 22px 22px; opacity: .35; pointer-events: none; }
-    .message { position: relative; z-index: 1; max-width: 88%; border-radius: 16px; padding: 10px 12px; line-height: 1.42; font-size: 15px; box-shadow: 0 1px 1px rgba(0,0,0,.04); opacity: 0; transform: translateY(12px); transition: opacity .42s ease, transform .42s ease; }
-    .message.visible { opacity: 1; transform: translateY(0); }
-    .message.bot { align-self: flex-start; background: var(--bubble-bot); color: var(--ink); border-bottom-left-radius: 5px; border: 1px solid rgba(0,0,0,.045); }
-    .message.user { align-self: flex-end; background: var(--bubble-user); color: #102d42; border-bottom-right-radius: 5px; }
-    .message.file { display: flex; gap: 10px; align-items: center; }
-    .date { align-self: center; z-index: 1; background: rgba(71, 101, 122, .24); color: white; border-radius: 999px; padding: 4px 10px; font-size: 12px; margin: 2px 0 4px; }
-    .meta { display: block; text-align: right; color: rgba(29,35,41,.48); font-size: 10px; margin-top: 5px; }
-    .bot .meta { color: rgba(29,35,41,.44); }
-    .command-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 9px; }
-    .cmd, .inline-action { border: 1px solid rgba(47,136,216,.20); background: #fff; color: var(--telegram-dark); border-radius: 10px; padding: 8px 9px; font-size: 12.5px; font-weight: 750; text-align: center; }
-    .file-icon { width: 36px; height: 42px; border-radius: 10px; background: #ffffff; color: var(--telegram-dark); display: grid; place-items: center; font-weight: 900; border: 1px solid rgba(47,136,216,.20); flex: 0 0 auto; }
-    .progress-card { margin-top: 9px; border: 1px solid rgba(36,72,58,.14); border-radius: 14px; background: #fff; overflow: hidden; }
-    .progress-head { padding: 10px 11px; border-bottom: 1px solid rgba(36,72,58,.10); }
-    .progress-head b { display: block; }
-    .progress-head small { display: block; color: var(--muted); margin-top: 3px; line-height: 1.35; }
-    .step-list { display: grid; gap: 0; }
-    .step { display: grid; grid-template-columns: 22px 1fr; gap: 8px; align-items: start; padding: 9px 11px; border-bottom: 1px solid rgba(36,72,58,.08); opacity: .46; transition: opacity .35s ease, background .35s ease; }
-    .step:last-child { border-bottom: 0; }
-    .step.active { opacity: 1; background: #f5faf7; }
-    .step.done { opacity: 1; }
-    .dot { width: 18px; height: 18px; margin-top: 1px; border-radius: 50%; display: grid; place-items: center; border: 1px solid rgba(93,140,122,.32); color: transparent; font-size: 12px; }
-    .step.active .dot { border-color: var(--telegram); background: conic-gradient(var(--telegram) 0 72deg, rgba(47,136,216,.14) 72deg); animation: spin calc(1.1s * var(--speed)) linear infinite; }
-    .step.done .dot { color: #fff; background: var(--sage); border-color: var(--sage); animation: none; }
-    .step-title { font-weight: 800; font-size: 13.5px; }
-    .step-detail { color: var(--muted); font-size: 12.5px; margin-top: 2px; }
-    .report { display: none; margin-top: 9px; }
-    .report.visible { display: block; animation: softIn .38s ease both; }
-    .metric-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin: 8px 0; }
-    .metric { background: #eef6fb; border: 1px solid rgba(47,136,216,.12); border-radius: 12px; padding: 8px; text-align: center; }
-    .metric strong { display: block; font-size: 20px; letter-spacing: -.04em; }
-    .metric span { color: var(--muted); font-size: 11px; }
-    .summary-list { margin: 8px 0 0; padding-left: 18px; color: #2f3d47; }
-    .summary-list li { margin: 5px 0; }
-    .term-list { display: grid; gap: 6px; margin-top: 8px; }
-    .term { background: #fff; border: 1px solid rgba(0,0,0,.08); border-radius: 12px; padding: 8px 9px; }
-    .term b { display: block; font-size: 13px; }
-    .term span { color: var(--muted); font-size: 12px; }
-    .actions-inline { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 9px; }
-    .typing { position: relative; z-index: 1; align-self: flex-start; display: none; gap: 4px; background: var(--bubble-bot); border-radius: 16px; border-bottom-left-radius: 5px; padding: 12px; width: 58px; }
-    .typing.visible { display: flex; }
-    .typing span { width: 6px; height: 6px; border-radius: 50%; background: #8fa1ad; animation: typing calc(1s * var(--speed)) ease-in-out infinite; }
-    .typing span:nth-child(2) { animation-delay: .16s; } .typing span:nth-child(3) { animation-delay: .32s; }
-    .side-panel { border-radius: 28px; border: 1px solid var(--line); background: rgba(255,255,255,.66); padding: 20px; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
-    .side-panel h2 { margin: 0; font-size: 22px; letter-spacing: -.035em; }
-    .side-panel p { margin: 0; color: var(--muted); line-height: 1.5; }
-    .side-list { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
-    .side-list li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; align-items: start; color: #34434e; }
-    .side-list li::before { content: ""; width: 10px; height: 10px; margin-top: 7px; border-radius: 50%; background: var(--sage); }
-    .control-panel { display: flex; flex-wrap: wrap; gap: 8px; border-top: 1px solid var(--line); padding-top: 14px; margin-top: auto; }
-    .control { background: #fff; color: var(--ink); border: 1px solid var(--line); border-radius: 12px; padding: 9px 11px; font-weight: 750; }
-    .control.primary { background: var(--phone); color: white; }
-    .sections { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 0 0 64px; }
-    .section-card { border: 1px solid var(--line); background: rgba(255,255,255,.68); border-radius: 24px; padding: 22px; }
-    .section-card h2 { margin: 0 0 12px; font-size: 26px; letter-spacing: -.04em; }
-    .section-card ul { margin: 0; padding-left: 20px; color: #34434e; line-height: 1.55; }
-    .section-card li { margin: 8px 0; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      background:
+        radial-gradient(60% 50% at 50% -10%, rgba(255,255,255,.75), transparent 70%),
+        linear-gradient(180deg, var(--theme-page-start), var(--theme-page-end));
+      color: var(--ink);
+      font-family: -apple-system, "SF Pro Text", system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow: hidden;
+    }
+    .topbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 10;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; padding: 16px 22px;
+    }
+    .brand {
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 700; letter-spacing: -.02em; font-size: 15px;
+    }
+    .brand .mark {
+      width: 28px; height: 28px; border-radius: 8px;
+      background: var(--theme-avatar-bg);
+      color: transparent;
+      display: grid; place-items: center; font-size: 13px; font-weight: 700;
+      box-shadow: inset 0 0 0 0.5px rgba(0,0,0,.08), 0 0 0 1px var(--theme-avatar-ring);
+      overflow: hidden;
+    }
+    .brand .mark img {
+      width: var(--theme-avatar-logo-scale); height: var(--theme-avatar-logo-scale);
+      object-fit: contain; object-position: center var(--theme-avatar-logo-y); display:block;
+    }
+    .brand .tag {
+      color: var(--muted); font-weight: 500; font-size: 13px;
+      padding-left: 10px; margin-left: 4px; border-left: 1px solid var(--line);
+    }
+    .controls { display: flex; align-items: center; gap: 6px; }
+    .ctrl {
+      font: inherit; cursor: pointer; appearance: none;
+      background: rgba(255,255,255,.7); border: 1px solid var(--line);
+      color: var(--theme-ink); border-radius: 999px;
+      padding: 8px 14px; font-size: 13px; font-weight: 500;
+      display: inline-flex; align-items: center; gap: 6px;
+      backdrop-filter: blur(8px);
+      transition: background .15s;
+    }
+    .ctrl:hover { background: rgba(255,255,255,.95); }
+    .ctrl.primary { background: var(--theme-accent-strong); color: #fff; border-color: var(--theme-accent-strong); }
+    .ctrl.primary:hover { background: #000; }
+    .ctrl svg { display: block; }
+
+    .stage {
+      position: fixed; inset: 0;
+      display: grid; place-items: center;
+      padding: 80px 24px 32px;
+    }
+    .frame-fit {
+      position: relative;
+    }
+    .frame-scale {
+      position: absolute; top: 0; left: 0;
+      transform-origin: top left;
+    }
+
     @keyframes spin { to { transform: rotate(360deg); } }
-    @keyframes typing { 0%, 70%, 100% { transform: translateY(0); opacity: .45; } 35% { transform: translateY(-4px); opacity: 1; } }
-    @keyframes softIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-    @media (max-width: 1040px) { .hero { grid-template-columns: 1fr; } .stage-wrap { grid-template-columns: 1fr; } .phone { margin: 0 auto; width: min(460px, 100%); } }
-    @media (max-width: 720px) { .hero > div:first-child { order: 2; } .hero > .stage-wrap { order: 1; } }
-    @media (max-width: 720px) { .shell { width: min(100% - 20px, 1180px); } .hero { padding-top: 14px; } .brandbar { margin-bottom: 22px; } .phone { min-height: 620px; height: 82vh; border-radius: 28px; padding: 8px; } .screen { border-radius: 22px; } .message { font-size: 14px; max-width: 92%; } .sections { grid-template-columns: 1fr; } .command-grid { grid-template-columns: 1fr; } .stage-wrap { gap: 14px; } }
+    @keyframes tg-bounce {
+      0%, 60%, 100% { transform: translateY(0); opacity: .4; }
+      30% { transform: translateY(-4px); opacity: 1; }
+    }
+    /* Telegram-iOS message enter: scale from tail corner + fade + tiny Y rise */
+    @keyframes tg-msg-in {
+      0%   { transform: scale(.42) translateY(10px); opacity: 0; }
+      55%  { opacity: 1; }
+      100% { transform: scale(1) translateY(0); opacity: 1; }
+    }
+    @keyframes tg-typing-in {
+      0%   { transform: scale(.6); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    @keyframes tg-typing-out {
+      0%   { transform: scale(1); opacity: 1; }
+      100% { transform: scale(.6); opacity: 0; }
+    }
+    .tg-msg {
+      animation: tg-msg-in .34s cubic-bezier(.16,1,.3,1) both;
+      will-change: transform, opacity;
+    }
+    .tg-msg-user { transform-origin: 100% 100%; }
+    .tg-msg-bot  { transform-origin: 0% 100%; }
+    .tg-msg-center { transform-origin: 50% 100%; }
+    .tg-typing {
+      animation: tg-typing-in .22s cubic-bezier(.16,1,.3,1) both;
+      transform-origin: 0% 100%;
+    }
+    @keyframes thinking-bounce {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      25% { transform: scale(1.18) rotate(-6deg); }
+      75% { transform: scale(1.18) rotate(6deg); }
+    }
+    .thinking-emoji {
+      animation: thinking-bounce 1.1s ease-in-out infinite;
+      transform-origin: center 60%;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(.6); opacity: .55; }
+    }
+    .pulse-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--theme-accent); display: inline-block;
+      animation: pulse-dot 1s ease-in-out infinite;
+    }
+    /* animated trailing "..." for thinking/active headers */
+    @keyframes ell-dot {
+      0%, 80%, 100% { opacity: .2; }
+      40% { opacity: 1; }
+    }
+    .ellipsis-dots { display: inline-block; margin-left: 1px; letter-spacing: 1px; }
+    .ellipsis-dots span {
+      display: inline-block; opacity: .2;
+      animation: ell-dot 1.4s ease-in-out infinite;
+    }
+    .ellipsis-dots span:nth-child(2) { animation-delay: .2s; }
+    .ellipsis-dots span:nth-child(3) { animation-delay: .4s; }
+
+    body.reduced * { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+    /* hide scrollbar inside the phone chat */
+    .tg-scroll { scrollbar-width: none; -ms-overflow-style: none; }
+    .tg-scroll::-webkit-scrollbar { width: 0; height: 0; display: none; }
   </style>
 </head>
 <body>
-  <main id="app" aria-live="polite"></main>
-  <script>
-    const q = (sel, root=document) => root.querySelector(sel);
-    const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-    let content, paused = false, skipToEnd = false, runId = 0;
-    function esc(s){ return String(s ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c])); }
-    async function loadContent(){
-      const res = await fetch('content/prante-content.json', {cache:'no-store'});
-      if(!res.ok) throw new Error('Не удалось загрузить текст прототипа');
-      return await res.json();
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <script src="content/content-adapter.js?v=20260525-editor"></script>
+  <script type="text/babel" src="ios-frame.jsx?v=20260525-editor"></script>
+  <script type="text/babel" src="app.jsx?v=20260525-editor"></script>
+
+  <script type="text/babel">
+    const { useState, useEffect, useRef, useLayoutEffect } = React;
+    const PHONE_W = 390, PHONE_H = 820;
+
+    function applyThemeVars(vars) {
+      if (!vars || typeof vars !== 'object') return;
+      Object.entries(vars).forEach(([key, value]) => {
+        document.documentElement.style.setProperty(key, String(value));
+      });
     }
-    function render(){
-      const app = q('#app');
-      document.title = content.meta.title;
-      app.innerHTML = `
-        <section class="shell hero">
-          <div>
-            <div class="brandbar"><div class="brand"><div class="brand-mark">${esc(content.meta.brandLetter || "П")}</div><span>${esc(content.meta.brandName || content.botHeader.name)}</span></div><span class="badge">${esc(content.page.badge)}</span></div>
-            <h1>${esc(content.page.headline)}</h1>
-            <p class="lead">${esc(content.page.subhead)}</p>
-            <div class="cta-row"><button class="button primary" data-action="restart">${esc(content.page.primaryCta)}</button><button class="button secondary" data-action="final">${esc(content.page.secondaryCta)}</button></div>
-            <div class="note-card"><strong>${esc(content.page.principleTitle)}</strong><p>${esc(content.page.principleText)}</p></div>
+
+    async function loadThemeVars() {
+      try {
+        const res = await fetch('content/theme-overrides.json', { cache: 'no-store' });
+        if (!res.ok) return null;
+        const data = await res.json();
+        return data && data.vars ? data.vars : null;
+      } catch (err) {
+        console.warn('theme load failed', err);
+        return null;
+      }
+    }
+
+    function Shell() {
+      const startFinal = new URLSearchParams(window.location.search).get('demo') === 'final';
+      const [content, setContent] = useState(null);
+      const [contentStatus, setContentStatus] = useState(null);
+      const [runKey, setRunKey] = useState(0);
+      const [skip, setSkip] = useState(startFinal);
+      const [reduced, setReduced] = useState(false);
+      const [scale, setScale] = useState(1);
+
+      // Load content: Google Sheets first, local JSON fallback.
+      useEffect(() => {
+        PranteContentTools.loadMergedContent({ basePath: '.' })
+          .then(result => {
+            setContent(result.content);
+            setContentStatus(result);
+            window.PranteContentStatus = result;
+            document.title = result.content?.meta?.title || 'ПРАНТЕ — прототип';
+            window.dispatchEvent(new CustomEvent('prante-content-status', { detail: result }));
+            if (result.errors.length) console.error('content validation errors', result.errors);
+            if (result.warnings.length) console.warn('content validation warnings', result.warnings);
+          })
+          .catch(err => console.error('content load failed', err));
+      }, []);
+
+      // Fit-to-viewport scaling
+      useLayoutEffect(() => {
+        const compute = () => {
+          // available area: viewport minus top bar (~64) minus bottom padding (32) minus side padding
+          const w = window.innerWidth - 48;
+          const h = window.innerHeight - 64 - 32;
+          const s = Math.min(w / PHONE_W, h / PHONE_H, 1);
+          setScale(s);
+        };
+        compute();
+        window.addEventListener('resize', compute);
+        return () => window.removeEventListener('resize', compute);
+      }, []);
+
+      useEffect(() => {
+        document.body.classList.toggle('reduced', reduced);
+      }, [reduced]);
+
+      useEffect(() => {
+        loadThemeVars().then(vars => vars && applyThemeVars(vars));
+        const onMessage = (event) => {
+          if (event?.data?.type === 'prante-theme-preview' && event.data.vars) {
+            applyThemeVars(event.data.vars);
+          }
+        };
+        window.addEventListener('message', onMessage);
+        return () => window.removeEventListener('message', onMessage);
+      }, []);
+
+      return (
+        <>
+          <div className="topbar">
+            <div className="brand">
+              <div className="mark"><img src="assets/prante-logo-transparent.png" alt="" /></div>
+              <span>ПРАНТЕ</span>
+              <span className="tag">прототип Telegram-бота · MVP</span>
+            </div>
+            <div className="controls">
+              <button className="ctrl" onClick={() => setReduced(r => !r)} title="меньше движения">
+                {reduced ? 'Анимация: выкл' : 'Анимация: вкл'}
+              </button>
+              <button className="ctrl" onClick={() => { setSkip(true); setRunKey(k => k+1); }}>
+                {content?.controls?.final || 'Сразу к финалу'}
+              </button>
+              <button className="ctrl primary" onClick={() => { setSkip(false); setRunKey(k => k+1); }}>
+                <svg width="12" height="12" viewBox="0 0 12 12"><path d="M3 1.5l7 4.5-7 4.5z" fill="currentColor"/></svg>
+                {content?.controls?.restart || 'Запустить заново'}
+              </button>
+            </div>
           </div>
-          <div class="stage-wrap">
-            <div class="phone" data-capture="phone"><div class="screen"><div class="chat-head"><div class="bot-id"><div class="avatar">${esc(content.meta.brandLetter || "П")}</div><div><div class="bot-name">${esc(content.botHeader.name)}</div><div class="bot-status" id="botStatus">${esc(content.botHeader.statusIdle)}</div></div></div><div class="menu">${esc(content.botHeader.menu)}</div></div><div class="chat" id="chat"><div class="date">${esc(content.chat.dateLabel)}</div><div class="typing" id="typing"><span></span><span></span><span></span></div></div></div></div>
-            <aside class="side-panel"><h2>${esc(content.skeleton.title)}</h2><ul class="side-list">${content.skeleton.items.map(i=>`<li>${esc(i)}</li>`).join('')}</ul><div class="control-panel"><button class="control primary" data-action="restart">${esc(content.controls.restart)}</button><button class="control" data-action="pause" id="pauseBtn">${esc(content.controls.pause)}</button><button class="control" data-action="final">${esc(content.controls.final)}</button><button class="control" data-action="motion">${esc(content.controls.motion)}</button></div></aside>
+
+          <div className="stage">
+            <div className="frame-fit" style={{ width: PHONE_W * scale, height: PHONE_H * scale }}>
+              <div className="frame-scale" style={{ transform: `scale(${scale})`, width: PHONE_W, height: PHONE_H }}>
+                {content && (
+                  <IOSDevice width={PHONE_W} height={PHONE_H}>
+                    <div style={{height:'100%', width:'100%', position:'relative'}}>
+                      <PranteApp
+                        content={content}
+                        runKey={runKey}
+                        skip={skip}
+                        speed={reduced ? 6 : 1}
+                      />
+                    </div>
+                  </IOSDevice>
+                )}
+              </div>
+            </div>
           </div>
-        </section>
-        <section class="shell sections"><article class="section-card"><h2>${esc(content.page.researchTitle)}</h2><ul>${content.page.researchItems.map(i=>`<li>${esc(i)}</li>`).join('')}</ul></article><article class="section-card"><h2>${esc(content.page.mvpTitle)}</h2><ul>${content.page.mvpItems.map(i=>`<li>${esc(i)}</li>`).join('')}</ul></article></section>`;
-      document.addEventListener('click', onClick);
+        </>
+      );
     }
-    function onClick(e){
-      const btn = e.target.closest('[data-action]'); if(!btn) return;
-      const action = btn.dataset.action;
-      if(action==='restart') startFlow();
-      if(action==='final') { skipToEnd = true; startFlow(true); }
-      if(action==='pause') { paused = !paused; q('#pauseBtn').textContent = paused ? content.controls.resume : content.controls.pause; }
-      if(action==='motion') document.body.classList.toggle('reduced');
-    }
-    async function wait(ms){
-      const target = Date.now() + (ms * Number(getComputedStyle(document.documentElement).getPropertyValue('--speed') || 1));
-      while(Date.now() < target){ if(skipToEnd) break; while(paused) await sleep(120); await sleep(60); }
-    }
-    function chat(){ return q('#chat'); }
-    function typing(show){ q('#typing').classList.toggle('visible', show); if(show) chat().appendChild(q('#typing')); }
-    function msg(cls, html, id){
-      const el = document.createElement('div'); el.className = `message ${cls}`; if(id) el.id = id; el.innerHTML = html + `<span class="meta">${new Date().toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'})}</span>`; chat().insertBefore(el, q('#typing')); requestAnimationFrame(()=>el.classList.add('visible')); chat().scrollTop = chat().scrollHeight; return el;
-    }
-    function progressHtml(doneCount=0, activeIndex=0, final=false){
-      const steps = content.progress.steps.map((s,i)=>{ const state = final || i < doneCount ? 'done' : i === activeIndex ? 'active' : ''; return `<div class="step ${state}"><div class="dot">✓</div><div><div class="step-title">${esc(s.label)}</div><div class="step-detail">${esc(s.detail)}</div></div></div>`; }).join('');
-      return `<div class="progress-card"><div class="progress-head"><b>${esc(final ? content.chat.readyTitle : content.chat.processingTitle)}</b><small>${esc(final ? content.chat.readyHint : content.chat.processingHint)}</small></div><div class="step-list">${steps}</div></div>`;
-    }
-    function reportHtml(){
-      return `<div class="report visible"><div class="metric-grid">${content.report.metrics.map(m=>`<div class="metric"><strong>${esc(m.value)}</strong><span>${esc(m.label)}</span></div>`).join('')}</div><b>${esc(content.report.summaryTitle)}</b><ul class="summary-list">${content.report.summary.map(i=>`<li>${esc(i)}</li>`).join('')}</ul><div class="term-list"><b>${esc(content.glossary.title)}</b>${content.glossary.items.map(t=>`<div class="term"><b>${esc(t.source)} → ${esc(t.target)}</b><span>${esc(t.note)}</span></div>`).join('')}</div><div class="actions-inline">${content.report.buttons.map(b=>`<button class="inline-action">${esc(b)}</button>`).join('')}</div></div>`;
-    }
-    function resetChat(){ const c = chat(); [...c.querySelectorAll('.message')].forEach(n=>n.remove()); typing(false); q('#botStatus').textContent = content.botHeader.statusIdle; }
-    async function startFlow(finalOnly=false){
-      runId++; const thisRun = runId; skipToEnd = !!finalOnly; paused = false; const pb=q('#pauseBtn'); if(pb) pb.textContent=content.controls.pause; resetChat();
-      msg('bot', `<b>${esc(content.chat.startMessage)}</b><br>${esc(content.chat.startHint)}<div class="command-grid">${content.chat.commands.map(c=>`<button class="cmd">${esc(c)}</button>`).join('')}</div>`);
-      if(!skipToEnd) await wait(900); if(thisRun!==runId) return;
-      msg('user', `${esc(content.chat.userMessage)}`); if(!skipToEnd) await wait(520);
-      msg('user file', `<div class="file-icon">${esc(content.chat.fileIconLabel)}</div><div><b>${esc(content.chat.fileTitle)}</b><br><span>${esc(content.chat.fileMeta)}</span></div>`);
-      q('#botStatus').textContent = content.botHeader.statusWorking; typing(true); if(!skipToEnd) await wait(800); typing(false);
-      const p = msg('bot', progressHtml(0,0), 'progressMessage');
-      for(let i=0;i<content.progress.steps.length;i++){ if(thisRun!==runId) return; p.innerHTML = progressHtml(i, i) + `<span class="meta">${new Date().toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'})}</span>`; if(!skipToEnd) await wait(content.progress.steps[i].durationMs); }
-      p.innerHTML = progressHtml(content.progress.steps.length, content.progress.steps.length, true) + reportHtml() + `<span class="meta">${new Date().toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'})}</span>`;
-      q('#botStatus').textContent = content.botHeader.statusDone; chat().scrollTop = chat().scrollHeight; if(!skipToEnd) await wait(1100);
-      msg('user', esc(content.chat.glossaryUserAction)); typing(true); if(!skipToEnd) await wait(650); typing(false); msg('bot', esc(content.chat.glossaryBotReply)); if(!skipToEnd) await wait(850);
-      msg('user', esc(content.chat.draftUserAction)); typing(true); if(!skipToEnd) await wait(1000); typing(false); msg('bot', `<b>${esc(content.chat.draftTitle)}</b><br>${esc(content.chat.draftText)}`); if(!skipToEnd) await wait(900);
-      msg('user', esc(content.chat.editUserAction)); typing(true); if(!skipToEnd) await wait(750); typing(false); msg('bot', `<b>${esc(content.chat.memoryTitle)}</b><br>${esc(content.chat.memoryText)}<div class="actions-inline">${content.chat.memoryButtons.map(b=>`<button class="inline-action">${esc(b)}</button>`).join('')}</div>`); if(!skipToEnd) await wait(850);
-      msg('user', esc(content.chat.memoryUserAction)); typing(true); if(!skipToEnd) await wait(650); typing(false); msg('bot', `<b>${esc(content.chat.finalTitle)}</b><br>${esc(content.chat.finalText)}`); chat().scrollTop = chat().scrollHeight;
-    }
-    (async function boot(){ try { content = await loadContent(); render(); startFlow(); } catch(err) { document.body.innerHTML = `<main class="shell" style="padding:40px"><h1>Не удалось открыть прототип</h1><p>${esc(err.message)}</p></main>`; console.error(err); } })();
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<Shell />);
   </script>
 </body>
 </html>

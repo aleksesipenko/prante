@@ -36,6 +36,7 @@ docs/research/PRANTE_research_google_docs_*
 docs/prototypes/*/verification/
 docs/prototypes/frontend-references/
 docs/prototypes/prante-mvp-mockup.html
+docs/prototypes/final-mvp/content/editor-sheet-template.csv
 local/
 _local/
 .local/
@@ -46,6 +47,7 @@ _local/
 *.mov
 *.webm
 *.xlsx
+!docs/prototypes/final-mvp/content/editor-texts-template.xlsx
 *.xls
 *.pptx
 *.docx
