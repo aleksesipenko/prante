@@ -3,7 +3,15 @@ import fs from "node:fs";
 import vm from "node:vm";
 
 const adapterSource = fs.readFileSync(new URL("../content/content-adapter.js", import.meta.url), "utf8");
-const sandbox = { window: {} };
+const memoryStorage = new Map();
+const sandbox = {
+  window: {
+    localStorage: {
+      getItem: (key) => memoryStorage.get(key) || null,
+      setItem: (key, value) => memoryStorage.set(key, String(value)),
+    },
+  },
+};
 vm.createContext(sandbox);
 vm.runInContext(adapterSource, sandbox);
 
@@ -74,4 +82,19 @@ const schema = [
     rows: [{ c: [{ v: "Старт" }, { v: "Стартовое сообщение" }, { v: "Из gviz" }] }],
   });
   assert.equal(JSON.stringify(rows), JSON.stringify([{ "Раздел": "Старт", "Поле": "Стартовое сообщение", "Текст": "Из gviz" }]));
+}
+
+{
+  const rows = tools.contentToSheetRows(defaults, schema);
+  const csv = tools.rowsToCsv(rows, { delimiter: ";" });
+  assert.equal(rows[0]["Текст"], "Я помогу подготовить текст.");
+  assert.equal(tools.parseCsv(csv)[0]["Текст"], "Я помогу подготовить текст.");
+  assert.equal(csv.startsWith("Раздел;Поле;Текст;Подсказка;Лимит"), true);
+}
+
+{
+  memoryStorage.set("preview", "Раздел,Поле,Текст,Подсказка,Лимит\nСтарт,Стартовое сообщение,Черновик из localStorage,,120\n");
+  const sheet = await tools.loadSheetContent({ localDraftKey: "preview" });
+  assert.equal(sheet.loaded, true);
+  assert.equal(sheet.rows[0]["Текст"], "Черновик из localStorage");
 }
