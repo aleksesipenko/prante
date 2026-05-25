@@ -11,8 +11,9 @@
 
 ```bash
 cd docs/prototypes/final-mvp
-python3 -m http.server 8777
-# открыть http://127.0.0.1:8777
+python3 serve_dev.py
+# прототип: http://127.0.0.1:8777/docs/prototypes/final-mvp/index.html
+# редакторский preview: http://127.0.0.1:8777/docs/prototypes/final-mvp/admin/
 ```
 
 Что можно править:
@@ -23,6 +24,13 @@ python3 -m http.server 8777
 - термины глоссария;
 - текст черновика;
 - пояснения для сдачи.
+
+Как править:
+
+- команда редактирует тексты в Google Sheets, не в коде;
+- preview и проверка ошибок открываются по адресу `/docs/prototypes/final-mvp/admin/`;
+- если таблица временно недоступна, сайт берёт fallback из `content/prante-content.json`;
+- финальный snapshot в Git фиксируется через `python docs/prototypes/final-mvp/scripts/sync_google_sheet.py`.
 
 Важно не ломать:
 
