@@ -1,0 +1,17 @@
+[Unit]
+Description=OpenClaw PRANTE gateway (profile=prante)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=alex
+Environment=HOME=/home/alex
+ExecStart=/usr/bin/env openclaw --profile prante gateway start --foreground
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=default.target

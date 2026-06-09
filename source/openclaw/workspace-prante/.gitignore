@@ -1,0 +1,52 @@
+# ПРАНТЕ workspace .gitignore
+# Локальные runtime артефакты профиля, секреты и состояние.
+
+# OpenClaw profile state — не для гита
+.openclaw/
+.openclaw-prante/
+
+# Setup marker от OpenClaw bootstrap
+# (оставляем workspace-state.json, если позже понадобится — но
+# по умолчанию рантайм-состояние в гите не нужно)
+/.openclaw/workspace-state.json
+
+# Локальные Telethon-сессии и Telegram-экспорты
+*.session
+*.session-journal
+telegram-export/
+telethon-*.json
+
+# Verification артефакты и screenshots оператора
+verification/
+operator-screenshots/
+*.png
+!docs/**/*.png
+!skills/**/*.png
+
+# Локальные SQLite-базы плагина (создаются runtime)
+*.sqlite
+*.sqlite-journal
+*.sqlite-shm
+*.sqlite-wal
+data/
+state/
+
+# Временные файлы редакторов
+*.swp
+*.swo
+.DS_Store
+.idea/
+.vscode/
+*~
+
+# Python/Node мусор (на случай локальных хелперов)
+__pycache__/
+*.pyc
+node_modules/
+.env
+.env.local
+
+# Generated archives
+*.tar.gz
+*.zip
+artifacts/local-*

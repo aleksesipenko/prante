@@ -1,0 +1,124 @@
+{
+  "agents": {
+    "defaults": {
+      "workspace": "/home/alex/.openclaw/workspace-prante",
+      "memorySearch": {
+        "enabled": false,
+        "sources": [
+          "memory"
+        ],
+        "fallback": "none",
+        "store": {
+          "driver": "sqlite",
+          "path": "/home/alex/.openclaw-prante/memory/prante-default.sqlite",
+          "vector": {
+            "enabled": false
+          }
+        },
+        "chunking": {
+          "tokens": 420,
+          "overlap": 80
+        },
+        "sync": {
+          "onSessionStart": false,
+          "onSearch": false,
+          "watch": false,
+          "intervalMinutes": 30
+        }
+      },
+      "models": {
+        "Cronos-LLM/openrouter-deepseek-v4-flash": {},
+        "Cronos-LLM/cx/gpt-5.4": {},
+        "Cronos-LLM/gemini-2.5-flash-lite": {},
+        "Cronos-LLM/openrouter-free-gpt-oss-120b": {},
+        "Cronos-LLM/openrouter-free-gpt-oss-20b": {}
+      },
+      "model": {
+        "primary": "Cronos-LLM/openrouter-deepseek-v4-flash",
+        "fallbacks": [
+          "Cronos-LLM/cx/gpt-5.4",
+          "Cronos-LLM/openrouter-free-gpt-oss-120b",
+          "Cronos-LLM/openrouter-free-gpt-oss-20b"
+        ]
+      },
+      "imageModel": {
+        "primary": "Cronos-LLM/gemini-2.5-flash-lite"
+      },
+      "thinkingDefault": "off"
+    }
+  },
+  "gateway": {
+    "mode": "local",
+    "auth": {
+      "mode": "token",
+      "token": {
+        "source": "file",
+        "provider": "prante_file",
+        "id": "/GATEWAY_TOKEN"
+      }
+    },
+    "port": 18789,
+    "bind": "loopback",
+    "tailscale": {
+      "mode": "off",
+      "resetOnExit": false
+    },
+    "controlUi": {
+      "dangerouslyDisableDeviceAuth": false
+    }
+  },
+  "session": {
+    "dmScope": "per-channel-peer"
+  },
+  "tools": {
+    "profile": "messaging",
+    "alsoAllow": [
+      "prante-translator-tools",
+      "message",
+      "group:messaging"
+    ]
+  },
+  "skills": {
+    "install": {
+      "nodeManager": "npm"
+    },
+    "entries": {}
+  },
+  "wizard": {
+    "lastRunAt": "2026-06-09T04:53:52.277Z",
+    "lastRunVersion": "2026.6.1",
+    "lastRunCommand": "doctor",
+    "lastRunMode": "local"
+  },
+  "meta": {
+    "lastTouchedVersion": "2026.6.1",
+    "lastTouchedAt": "2026-06-09T04:53:52.310Z"
+  },
+  "plugins": {
+    "load": {
+      "paths": [
+        "/home/alex/.openclaw-prante/local-plugins/prante-translator-tools"
+      ]
+    },
+    "entries": {
+      "prante-translator-tools": {
+        "enabled": true
+      }
+    }
+  },
+  "commands": {
+    "ownerAllowFrom": [
+      "telegram:873529051",
+      873529051
+    ]
+  },
+  "secrets": {
+    "providers": {
+      "prante_file": {
+        "source": "file",
+        "path": "/home/alex/.openclaw-prante/secrets/prante-secrets.json",
+        "mode": "json"
+      }
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "id": "prante-translator-tools",
+  "name": "PRANTE Translator Tools",
+  "description": "Deterministic translation-analysis tools for PRANTE: segmentation, repeats, glossary, TM, memory candidates, comparison, QA, and exportable translation files.",
+  "version": "0.1.0",
+  "configSchema": {
+    "type": "object",
+    "properties": {
+      "stateDir": {
+        "type": "string",
+        "description": "Optional local state directory. Defaults to OPENCLAW_STATE_DIR/prante-translator-tools or ~/.openclaw-prante/state/prante-translator-tools."
+      },
+      "exportDir": {
+        "type": "string",
+        "description": "Optional output directory for exported translation files. Defaults to the PRANTE workspace exports directory."
+      }
+    },
+    "additionalProperties": false
+  },
+  "activation": {
+    "onStartup": true
+  },
+  "contracts": {
+    "tools": [
+      "prante_analyze_text",
+      "prante_glossary_lookup",
+      "prante_memory_lookup",
+      "prante_save_memory_candidate",
+      "prante_export_translation",
+      "prante_compare_translation",
+      "prante_qa_check"
+    ]
+  }
+}
